@@ -3,6 +3,8 @@
   color: #e2f3f5;
   font-size: 1.3rem;
   text-shadow: 0px 4px 3px #0e153a, 0px 8px 13px #3d5af1, 0px 18px 23px #22d1ee; }
+  .nav-link-text:hover {
+    text-shadow: 0px 4px 3px #e2f3f5, 0px 8px 13px #22d1ee; }
   @media (min-width: 600px) {
     .nav-link-text {
       font-size: 1.5rem; } }

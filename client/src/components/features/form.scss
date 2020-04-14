@@ -3,8 +3,12 @@
 .form-container {
   padding: 1em;
   width: 100vw;
-  box-shadow: 5px 4px 3px $dark-blue-grey-color, 10px 8px 13px $royal-blue-color,
-    20px 18px 23px $turquoise-blue-color;
+  box-shadow: 5px 4px 3px $dark-blue-grey-color;
+  background-color: $pale-blue-color;
+  color: $dark-blue-grey-color;
+  text-shadow: none;
+  // box-shadow: 5px 4px 3px $dark-blue-grey-color, 10px 8px 13px $royal-blue-color,
+  //   20px 18px 23px $turquoise-blue-color;
 
   @media (min-width: 600px) {
     max-width: 30rem;

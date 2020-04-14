@@ -7,6 +7,11 @@
   text-shadow: 0px 4px 3px $dark-blue-grey-color, 0px 8px 13px $royal-blue-color,
     0px 18px 23px $turquoise-blue-color;
 
+  &:hover {
+    text-shadow: 0px 4px 3px $pale-blue-color,
+      0px 8px 13px $turquoise-blue-color;
+  }
+
   @media (min-width: 600px) {
     font-size: 1.5rem;
   }
