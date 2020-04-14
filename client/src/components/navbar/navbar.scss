@@ -1,0 +1,17 @@
+@import "../colors.scss";
+
+.nav-link-text {
+  font-weight: 900;
+  color: $pale-blue-color;
+  font-size: 1.3rem;
+  text-shadow: 0px 4px 3px $dark-blue-grey-color, 0px 8px 13px $royal-blue-color,
+    0px 18px 23px $turquoise-blue-color;
+
+  @media (min-width: 600px) {
+    font-size: 1.5rem;
+  }
+}
+
+.navbar-shadow {
+  box-shadow: 0px 2px 3px #0e153a, 0px 3px 5px #3d5af1, 0px 4px 7px #22d1ee;
+}

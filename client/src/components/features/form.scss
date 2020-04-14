@@ -1,0 +1,29 @@
+@import "../colors.scss";
+
+.form-container {
+  padding: 1em;
+  width: 100vw;
+  box-shadow: 5px 4px 3px $dark-blue-grey-color, 10px 8px 13px $royal-blue-color,
+    20px 18px 23px $turquoise-blue-color;
+
+  @media (min-width: 600px) {
+    max-width: 30rem;
+  }
+}
+
+.form-input {
+  display: flex;
+  align-items: baseline;
+
+  input {
+    flex: 1 1 auto;
+  }
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
+}
+
+label {
+  white-space: nowrap;
+}

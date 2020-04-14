@@ -1,0 +1,19 @@
+.form-container {
+  padding: 1em;
+  width: 100vw;
+  box-shadow: 5px 4px 3px #0e153a, 10px 8px 13px #3d5af1, 20px 18px 23px #22d1ee; }
+  @media (min-width: 600px) {
+    .form-container {
+      max-width: 30rem; } }
+
+.form-input {
+  display: flex;
+  align-items: baseline; }
+  .form-input input {
+    flex: 1 1 auto; }
+  @media (max-width: 400px) {
+    .form-input {
+      flex-direction: column; } }
+
+label {
+  white-space: nowrap; }
