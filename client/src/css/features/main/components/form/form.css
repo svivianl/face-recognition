@@ -1,0 +1,10 @@
+@media (min-width: 600px) {
+  .url-form-container {
+    max-width: 50rem;
+    min-width: 37rem; } }
+
+.url-form-container button {
+  margin-top: 1em; }
+  @media (min-width: 600px) {
+    .url-form-container button {
+      margin-left: 1em; } }

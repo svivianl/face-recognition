@@ -19,7 +19,7 @@ function App() {
         <header>
           <NavBar />
         </header>
-        <main className="d-flex justify-content-center">
+        <main className="d-flex flex-column justify-content-center align-items-center mt-5 mb-5">
           <Router history={history}>
             <Routes />
           </Router>

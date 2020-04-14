@@ -1,0 +1,15 @@
+@import "../../../../colors.scss";
+
+.url-form-container {
+  @media (min-width: 600px) {
+    max-width: 50rem;
+    min-width: 37rem;
+  }
+
+  button {
+    margin-top: 1em;
+    @media (min-width: 600px) {
+      margin-left: 1em;
+    }
+  }
+}

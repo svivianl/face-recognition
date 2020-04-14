@@ -1,0 +1,22 @@
+@import "../../../../colors.scss";
+
+.image-container {
+  box-shadow: 5px 4px 3px $dark-blue-grey-color, 10px 8px 13px $royal-blue-color;
+}
+
+#inputimage {
+  width: 100vw;
+
+  @media (min-width: 600px) {
+    width: 500px;
+  }
+}
+
+.bounding-box {
+  position: absolute;
+  box-shadow: 0 0 0 3px #149df2 inset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+}

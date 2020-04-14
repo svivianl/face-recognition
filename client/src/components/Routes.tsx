@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from "react-router";
 import { useHistory } from "react-router-dom";
 import Register from "./features/Register";
 import SignIn from "./features/SignIn";
+import Main from "./features/main/Main";
 import { GlobalContext } from "../context/GlobalContext";
 
 const Routes = () => {
@@ -24,6 +25,7 @@ const Routes = () => {
     <Switch>
       <Route path="/register" exact={true} component={Register} />
       <Route path="/signin" component={SignIn} />
+      <Route path="/" component={Main} />
     </Switch>
   );
 };
