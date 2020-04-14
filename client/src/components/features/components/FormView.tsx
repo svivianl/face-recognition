@@ -52,14 +52,16 @@ const FormView = ({
             <div className="text-danger">{error.password}</div>
           )}
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          onClick={onSubmit}
-          disabled={buttonDisabled}
-        >
-          {buttonText}
-        </button>
+        <div className="col text-center">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={onSubmit}
+            disabled={buttonDisabled}
+          >
+            {buttonText}
+          </button>
+        </div>
       </form>
     </div>
   );

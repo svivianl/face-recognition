@@ -38,7 +38,7 @@ const Register = () => {
   return (
     <FormView
       name={"Register"}
-      buttonText={isSendingForm ? "Submitting" : "Submit"}
+      buttonText={isSendingForm ? "Registering" : "Register"}
       buttonDisabled={isSendingForm ? true : false}
       user={user}
       error={error}

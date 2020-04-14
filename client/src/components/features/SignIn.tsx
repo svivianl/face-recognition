@@ -40,7 +40,7 @@ const SignIn = () => {
   return (
     <FormView
       name={"Sign In"}
-      buttonText={isSendingForm ? "Submitting" : "Submit"}
+      buttonText={isSendingForm ? "Signing in" : "Sign In"}
       buttonDisabled={isSendingForm ? true : false}
       user={user}
       error={error}
