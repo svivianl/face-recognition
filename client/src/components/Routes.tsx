@@ -10,8 +10,7 @@ const Routes = () => {
   const { user } = useContext(GlobalContext);
   const history = useHistory();
 
-  const isLoggedOut =
-    Object.keys(user).length === 0 && user.constructor === Object;
+  const isLoggedOut = !Object.keys(user).length && user.constructor === Object;
 
   if (history.location.pathname === "/" && isLoggedOut) {
     return <Redirect to="/signin" />;

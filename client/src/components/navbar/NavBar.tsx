@@ -7,8 +7,7 @@ import "../../css/navbar/navbar.css";
 const NavBar = () => {
   const { user, deleteUser } = useContext(GlobalContext);
 
-  const isLoggedOut =
-    Object.keys(user).length === 0 && user.constructor === Object;
+  const isLoggedOut = !Object.keys(user).length && user.constructor === Object;
 
   const onSignOut = () => {
     deleteUser();
