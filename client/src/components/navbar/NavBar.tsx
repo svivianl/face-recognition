@@ -1,16 +1,21 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Nav } from "react-bootstrap";
 import Logo from "./components/Logo";
-import { GlobalContext } from "../../context/GlobalContext";
+import * as store from "../../store/users/store";
 import "../../css/navbar/navbar.css";
 
 const NavBar = () => {
-  const { user, deleteUser } = useContext(GlobalContext);
+  const dispatch = useDispatch();
+  const user = useSelector(store.userSelectors.getUser);
+  const { token } = user;
 
-  const isLoggedOut = !Object.keys(user).length && user.constructor === Object;
+  const isLoggedOut = !token;
 
   const onSignOut = () => {
-    deleteUser();
+    if (token) {
+      store.signOut(dispatch)({ token });
+    }
   };
 
   return (

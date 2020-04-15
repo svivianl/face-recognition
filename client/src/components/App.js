@@ -3,7 +3,6 @@ import Particles from "react-particles-js";
 import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { particlesParams } from "./types";
-import { GlobalProvider } from "../context/GlobalContext";
 import Routes from "./Routes";
 import NavBar from "./navbar/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,16 +14,14 @@ function App() {
   return (
     <div className="App">
       <Particles className="particles" params={particlesParams} />
-      <GlobalProvider>
-        <header>
-          <NavBar />
-        </header>
-        <main className="d-flex flex-column justify-content-center align-items-center mt-5 mb-5">
-          <Router history={history}>
-            <Routes />
-          </Router>
-        </main>
-      </GlobalProvider>
+      <header>
+        <NavBar />
+      </header>
+      <main className="d-flex flex-column justify-content-center align-items-center mt-5 mb-5">
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </main>
     </div>
   );
 }

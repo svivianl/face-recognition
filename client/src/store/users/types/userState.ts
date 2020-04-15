@@ -1,4 +1,4 @@
-import { User } from "../../components/types";
+import { User } from "../../../types";
 
 export type ErrorType = "get-user" | "create-user| 'delete-user";
 
@@ -18,6 +18,4 @@ export interface UserState {
   isLoading: boolean;
   user: User;
   status: Status | null;
-  postUser: (user: User) => void;
-  deleteUser: () => void;
 }

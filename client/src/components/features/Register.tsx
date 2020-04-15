@@ -1,16 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { User, handleRegisterErrors, UserInitialValues } from "../types";
 import FormView from "./components/FormView";
+import Loader from "../loader/Loader";
+import * as store from "../../store/users/store";
 import "../../css/features/form.css";
-import { GlobalContext } from "../../context/GlobalContext";
 
 const Register = () => {
-  const { postUser } = useContext(GlobalContext);
   const [user, setUser] = useState(UserInitialValues);
   const [error, setError] = useState({} as User);
-  const [isSendingForm, setIsSendingForm] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const isLoading = useSelector(store.userSelectors.getIsLoading);
+  const loggedUser = useSelector(store.userSelectors.getUser);
+
+  useEffect(() => {
+    if (loggedUser && loggedUser.token) {
+      history.push("/");
+    }
+  }, [loggedUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError({} as User);
@@ -24,44 +33,45 @@ const Register = () => {
     setError(errorMessages);
 
     if (!error) {
-      setIsSendingForm(true);
-      // TODO: call API
-      postUser(user);
-      setIsSendingForm(false);
+      store.register(dispatch)(user);
       setUser(UserInitialValues);
-      history.push("/");
     }
 
     e.preventDefault();
   };
 
   return (
-    <FormView
-      name={"Register"}
-      buttonText={isSendingForm ? "Registering" : "Register"}
-      buttonDisabled={isSendingForm ? true : false}
-      user={user}
-      error={error}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <div className="form-group">
-        <div className="form-input">
-          <label htmlFor="name" className="mr-2">
-            Name<span className="text-danger">*</span>
-          </label>
-          <input
-            type="name"
-            className="form-control d-inline-block"
-            id="name"
-            placeholder="John"
-            onChange={handleChange}
-            value={user.name}
-          />
+    <Fragment>
+      <FormView
+        name={"Register"}
+        buttonText={isLoading ? "Registering" : "Register"}
+        buttonDisabled={isLoading ? true : false}
+        user={user}
+        error={error}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <div className="form-group">
+          <div className="form-input">
+            <label htmlFor="name" className="mr-2">
+              Name<span className="text-danger">*</span>
+            </label>
+            <input
+              type="name"
+              className="form-control d-inline-block"
+              id="name"
+              placeholder="John"
+              onChange={handleChange}
+              value={user.name}
+            />
+          </div>
+          {error && error.name && (
+            <div className="text-danger">{error.name}</div>
+          )}
         </div>
-        {error && error.name && <div className="text-danger">{error.name}</div>}
-      </div>
-    </FormView>
+      </FormView>
+      <Loader showIf={isLoading} />
+    </Fragment>
   );
 };
 

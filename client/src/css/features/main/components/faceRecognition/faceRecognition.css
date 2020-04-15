@@ -2,7 +2,7 @@
   box-shadow: 5px 4px 3px #0e153a, 10px 8px 13px #3d5af1; }
 
 #inputimage {
-  width: 100vw; }
+  width: 90vw; }
   @media (min-width: 600px) {
     #inputimage {
       width: 500px; } }

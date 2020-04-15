@@ -1,19 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   SignIn as SingInType,
   handleSignInErrors,
   SignInInitialValues,
 } from "../types";
-import { GlobalContext } from "../../context/GlobalContext";
 import FormView from "./components/FormView";
+import Loader from "../loader/Loader";
+import * as store from "../../store/users/store";
 
 const SignIn = () => {
-  const { postUser } = useContext(GlobalContext);
   const [user, setUser] = useState(SignInInitialValues);
   const [error, setError] = useState({} as SingInType);
-  const [isSendingForm, setIsSendingForm] = useState(false);
+  // const [isSendingForm, setIsSendingForm] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const isLoading = useSelector(store.userSelectors.getIsLoading);
+  const loggedUser = useSelector(store.userSelectors.getUser);
+
+  useEffect(() => {
+    if (loggedUser && loggedUser.token) {
+      history.push("/");
+    }
+  }, [loggedUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError({} as SingInType);
@@ -27,26 +37,26 @@ const SignIn = () => {
     setError(errorMessages);
 
     if (!error) {
-      setIsSendingForm(true);
-      // TODO: call API
-      postUser({ ...user, name: "" });
-      setIsSendingForm(false);
+      store.signIn(dispatch)(user);
       setUser(SignInInitialValues);
-      history.push("/");
     }
 
     e.preventDefault();
   };
+
   return (
-    <FormView
-      name={"Sign In"}
-      buttonText={isSendingForm ? "Signing in" : "Sign In"}
-      buttonDisabled={isSendingForm ? true : false}
-      user={user}
-      error={error}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    />
+    <Fragment>
+      <FormView
+        name={"Sign In"}
+        buttonText={isLoading ? "Signing in" : "Sign In"}
+        buttonDisabled={isLoading ? true : false}
+        user={user}
+        error={error}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+      <Loader showIf={isLoading} />
+    </Fragment>
   );
 };
 

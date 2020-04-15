@@ -11,10 +11,7 @@ module.exports = (knex) => {
 
   router.route("/signin").post(helperUsers.login);
 
-  router
-    .route("/signout")
-    .all(middleware.isLoggedIn)
-    .delete(helperUsers.logout);
+  router.route("/signout").all(middleware.isLoggedIn).post(helperUsers.logout);
 
   router.route("/user").get(middleware.isLoggedIn);
   router.route("/user").all(middleware.isLoggedIn).post(helperUsers.putUser);

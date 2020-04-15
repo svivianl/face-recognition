@@ -1,8 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Clarifai from "clarifai";
 import FormView from "./components/form/FormView";
 import Rank from "./components/rank/Rank";
 import FaceRecognition from "./components/faceRecognition/FaceRecognition";
+import Loader from "../../loader/Loader";
+import * as store from "../../../store/users/store";
 
 const app = new Clarifai.App({
   apiKey: process.env.REACT_APP_CLARIFAI_API_KEY,
@@ -23,29 +26,17 @@ const calculateFacesLocation = (regions) => {
 
 const Main = () => {
   const [url, setUrl] = useState("");
+  const [inputUrl, setInputUrl] = useState("");
   const [error, setError] = useState("");
-  const [isSendingForm, setIsSendingForm] = useState(false);
   const [faces, setFaces] = useState([]);
-
-  useEffect(() => {
-    if (isSendingForm) {
-      app.models
-        .predict(Clarifai.FACE_DETECT_MODEL, url)
-        .then((data) => {
-          setFaces(calculateFacesLocation(data.outputs[0].data.regions));
-          setIsSendingForm(false);
-        })
-        .catch((error) => {
-          setError(error);
-          setIsSendingForm(false);
-        });
-    }
-  }, [isSendingForm]);
+  const dispatch = useDispatch();
+  const { token } = useSelector(store.userSelectors.getUser);
+  const isLoading = useSelector(store.userSelectors.getIsLoading);
 
   const handleChange = (e) => {
     // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError("");
-    setUrl(e.target.value);
+    setInputUrl(e.target.value);
     setFaces([]);
     e.preventDefault();
   };
@@ -53,12 +44,22 @@ const Main = () => {
   const handleSubmit = (e) => {
     // const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setFaces([]);
-    if (!url) {
+    if (!inputUrl) {
       setError("Please insert a valid URL");
     }
 
     if (!error) {
-      setIsSendingForm(true);
+      app.models
+        .predict(Clarifai.FACE_DETECT_MODEL, inputUrl)
+        .then((data) => {
+          setFaces(calculateFacesLocation(data.outputs[0].data.regions));
+          store.updateEntries(dispatch)({ token });
+          setUrl(inputUrl);
+          setInputUrl("");
+        })
+        .catch((error) => {
+          setError(error);
+        });
     }
 
     e.preventDefault();
@@ -68,14 +69,15 @@ const Main = () => {
     <Fragment>
       <Rank />
       <FormView
-        buttonText={isSendingForm ? "Detecting" : "Detect"}
-        buttonDisabled={isSendingForm ? true : false}
-        url={url}
+        buttonText={isLoading ? "Detecting" : "Detect"}
+        buttonDisabled={isLoading ? true : false}
+        url={inputUrl}
         error={error}
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
       <FaceRecognition imageUrl={url} faces={faces} />
+      <Loader showIf={isLoading} />
     </Fragment>
   );
 };
