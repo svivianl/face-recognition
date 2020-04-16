@@ -18,7 +18,7 @@ Backend
 
 Database
 
-- Postgress SQL
+- Postgres SQL
 
 ## Future Feature
 
