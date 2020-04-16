@@ -38,6 +38,11 @@ const Main = () => {
     setError("");
     setInputUrl(e.target.value);
     setFaces([]);
+
+    if (url) {
+      setUrl("");
+    }
+
     e.preventDefault();
   };
 
@@ -68,6 +73,7 @@ const Main = () => {
   return (
     <Fragment>
       <Rank />
+      <h5>{"This App will detect faces in your pictures. Give it a try."}</h5>
       <FormView
         buttonText={isLoading ? "Detecting" : "Detect"}
         buttonDisabled={isLoading ? true : false}
