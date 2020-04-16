@@ -1,4 +1,4 @@
-import { User } from "../../../components/types";
+import { User } from "../../../types";
 import { UserState } from "./userState";
 
 export function createUserState(): UserState {

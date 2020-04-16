@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { User, SignIn } from "../../types";
+import { User, SignIn } from "../../../types";
 
 interface FormViewProps {
   name: string;

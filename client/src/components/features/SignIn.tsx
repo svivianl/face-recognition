@@ -1,11 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  SignIn as SingInType,
-  handleSignInErrors,
-  SignInInitialValues,
-} from "../types";
+import { handleSignInErrors, SignInInitialValues } from "../types";
+import { SignIn as SingInType } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
 import * as store from "../../store/users/store";

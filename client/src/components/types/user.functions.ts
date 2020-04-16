@@ -1,8 +1,8 @@
-import { User, SignIn } from "./user";
+import { Register, SignIn } from "../../types";
 
-export const handleRegisterErrors = (user: User) => {
+export const handleRegisterErrors = (user: Register) => {
   const { name, email, password } = user;
-  let errorMessages = {} as User;
+  let errorMessages = {} as Register;
   let error = false;
 
   if (!name) {

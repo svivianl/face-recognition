@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { User, handleRegisterErrors, UserInitialValues } from "../types";
+import { handleRegisterErrors, UserInitialValues } from "../types";
+import { User } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
 import * as store from "../../store/users/store";
