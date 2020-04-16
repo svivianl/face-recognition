@@ -10,3 +10,20 @@ body {
   bottom: 0;
   left: 0;
   z-index: -1; }
+
+.portfolio h1 {
+  font-weight: 900;
+  font-size: 2.5rem; }
+
+.portfolio h2 {
+  font-weight: 800;
+  font-size: 1.5rem; }
+
+.portfolio h3 {
+  font-weight: 700; }
+
+.portfolio h4 {
+  font-weight: 600; }
+
+.portfolio h5 {
+  font-weight: 500; }
