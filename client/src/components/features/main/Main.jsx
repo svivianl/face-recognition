@@ -6,6 +6,7 @@ import FaceRecognition from "./components/faceRecognition/FaceRecognition";
 import Loader from "../../loader/Loader";
 import * as store from "../../../store/users/store";
 import * as clarifaiStore from "../../../store/clarifai/store";
+import "../../../css/App.css";
 
 const calculateFacesLocation = (regions) => {
   return regions.map((region) => {
@@ -69,8 +70,10 @@ const Main = () => {
 
   return (
     <Fragment>
-      <Rank />
-      <h5>{"This App will detect faces in your pictures. Give it a try."}</h5>
+      <div className="mr-3 ml-3">
+        <Rank />
+        <h5>{"This App will detect faces in your pictures. Give it a try."}</h5>
+      </div>
       <FormView
         buttonText={isLoading ? "Detecting" : "Detect"}
         buttonDisabled={isLoading ? true : false}

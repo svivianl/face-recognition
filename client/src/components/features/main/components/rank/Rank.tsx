@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import * as store from "../../../../../store/users/store";
+import "../../../../css/App.css";
 
 const Rank = () => {
   const user = useSelector(store.userSelectors.getUser);
