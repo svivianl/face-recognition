@@ -55,6 +55,13 @@ module.exports = (knex) => {
 
     login: (req, res) => {
       const { email, password } = req.body;
+      if (!email || !password) {
+        return res.status(400).json({
+          message:
+            "Incomplete form submitted. Please check fields and try again.",
+        });
+      }
+
       knex
         .select("*")
         .from("users")
