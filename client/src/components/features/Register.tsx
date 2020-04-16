@@ -19,7 +19,7 @@ const Register = () => {
     if (loggedUser && loggedUser.token) {
       history.push("/");
     }
-  }, [loggedUser]);
+  }, [loggedUser, history]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError({} as User);

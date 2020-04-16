@@ -1,6 +1,4 @@
-import { User } from "../../../types";
-
-export type ErrorType = "get-user" | "create-user" | "delete-user";
+export type ErrorType = "face-recognition";
 
 export interface MessageError {
   type: ErrorType;
@@ -14,8 +12,9 @@ export interface Status {
   error?: MessageError;
 }
 
-export interface UserState {
+export interface ClarifaiState {
   isLoading: boolean;
-  user: User;
+  url: string;
+  regions: any;
   status: Status | null;
 }

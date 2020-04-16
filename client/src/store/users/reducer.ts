@@ -31,6 +31,7 @@ export const userReducer = (
       return {
         ...state,
         isLoading: false,
+        user: {} as User,
         status: {
           type: "error",
           error: payload as MessageError,
@@ -40,7 +41,7 @@ export const userReducer = (
     case getType(UserActions.signInCancel):
     case getType(UserActions.updateEntriesCancel):
     case getType(UserActions.signOutCancel):
-      return { ...state, isLoading: false };
+      return { ...state, user: {} as User, isLoading: false };
     default:
       return state;
   }

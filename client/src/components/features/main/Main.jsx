@@ -1,15 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Clarifai from "clarifai";
 import FormView from "./components/form/FormView";
 import Rank from "./components/rank/Rank";
 import FaceRecognition from "./components/faceRecognition/FaceRecognition";
 import Loader from "../../loader/Loader";
 import * as store from "../../../store/users/store";
-
-const app = new Clarifai.App({
-  apiKey: process.env.REACT_APP_CLARIFAI_API_KEY,
-});
+import * as clarifaiStore from "../../../store/clarifai/store";
 
 const calculateFacesLocation = (regions) => {
   return regions.map((region) => {
@@ -25,24 +21,35 @@ const calculateFacesLocation = (regions) => {
 };
 
 const Main = () => {
-  const [url, setUrl] = useState("");
+  const [imageUrl, seImagetUrl] = useState("");
   const [inputUrl, setInputUrl] = useState("");
   const [error, setError] = useState("");
   const [faces, setFaces] = useState([]);
   const dispatch = useDispatch();
   const { token } = useSelector(store.userSelectors.getUser);
-  const isLoading = useSelector(store.userSelectors.getIsLoading);
+  const regions = useSelector(clarifaiStore.clarifaiSelectors.getRegions);
+  const url = useSelector(clarifaiStore.clarifaiSelectors.getUrl);
+  const isLoadingUser = useSelector(store.userSelectors.getIsLoading);
+  const isLoadingClarifai = useSelector(
+    clarifaiStore.clarifaiSelectors.getIsLoading
+  );
+  const isLoading = isLoadingUser || isLoadingClarifai;
+
+  useEffect(() => {
+    if (regions.length) {
+      setFaces(calculateFacesLocation(regions));
+      store.updateEntries(dispatch)({ token });
+      seImagetUrl(url);
+      setInputUrl("");
+    }
+  }, [regions, token, url, dispatch]);
 
   const handleChange = (e) => {
     // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError("");
     setInputUrl(e.target.value);
     setFaces([]);
-
-    if (url) {
-      setUrl("");
-    }
-
+    seImagetUrl("");
     e.preventDefault();
   };
 
@@ -54,17 +61,7 @@ const Main = () => {
     }
 
     if (!error) {
-      app.models
-        .predict(Clarifai.FACE_DETECT_MODEL, inputUrl)
-        .then((data) => {
-          setFaces(calculateFacesLocation(data.outputs[0].data.regions));
-          store.updateEntries(dispatch)({ token });
-          setUrl(inputUrl);
-          setInputUrl("");
-        })
-        .catch((error) => {
-          setError(error);
-        });
+      clarifaiStore.faceRecognition(dispatch)({ url: inputUrl, token });
     }
 
     e.preventDefault();
@@ -82,7 +79,7 @@ const Main = () => {
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
-      <FaceRecognition imageUrl={url} faces={faces} />
+      <FaceRecognition imageUrl={imageUrl} faces={faces} />
       <Loader showIf={isLoading} />
     </Fragment>
   );

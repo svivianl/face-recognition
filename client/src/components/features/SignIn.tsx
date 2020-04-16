@@ -13,7 +13,6 @@ import * as store from "../../store/users/store";
 const SignIn = () => {
   const [user, setUser] = useState(SignInInitialValues);
   const [error, setError] = useState({} as SingInType);
-  // const [isSendingForm, setIsSendingForm] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
@@ -23,7 +22,7 @@ const SignIn = () => {
     if (loggedUser && loggedUser.token) {
       history.push("/");
     }
-  }, [loggedUser]);
+  }, [loggedUser, history]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError({} as SingInType);

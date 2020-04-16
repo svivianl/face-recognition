@@ -17,6 +17,7 @@ const knex = require("knex")(knexConfig[ENV]);
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const clarifaiRoutes = require("./routes/clarifai");
 
 /********************************************/
 /* Setup app                                */
@@ -27,7 +28,8 @@ app.use(bodyParser.json());
 /********************************************/
 /* Mount all resource routes                */
 /********************************************/
-app.use("/api/", usersRoutes(knex));
+app.use("/api", usersRoutes(knex));
+app.use("/api/clarifai", clarifaiRoutes(knex));
 
 /********************************************/
 /* run server                               */
