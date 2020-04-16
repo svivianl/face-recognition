@@ -1,6 +1,24 @@
-# face-recognition
+# Face Recognition
 
-Face Recognition
+A responsive face recognition app.
+
+## Stack
+
+Frontend
+
+- React
+- Bootstrap
+- SASS
+- Typescript
+
+Backend
+
+- node
+- express
+
+Database
+
+- Postgress SQL
 
 ## Future Feature
 
