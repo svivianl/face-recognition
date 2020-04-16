@@ -22,6 +22,7 @@ Database
 
 ## Future Feature
 
+- add e-mail validation
 - add typescript on server
 
 ## Known Issues
