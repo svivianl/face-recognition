@@ -5,7 +5,7 @@ import Rank from "./components/rank/Rank";
 import FaceRecognition from "./components/faceRecognition/FaceRecognition";
 import Loader from "../../loader/Loader";
 import * as store from "../../../store/users/store";
-import * as clarifaiStore from "../../../store/clarifai/store";
+import * as clarifaiStore from "./store/store";
 import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 

@@ -1,12 +1,12 @@
 import { Epic } from "redux-observable";
 import { from, of } from "rxjs";
 import { catchError, filter, map, switchMap, takeUntil } from "rxjs/operators";
-import Action from "../action";
-import { RootState } from "../reducers";
+import Action from "../../../../store/action";
+import { RootState } from "../../../../store/reducers";
 import { isActionOf } from "typesafe-actions";
 import * as actions from "./actions";
-import * as api from "../../api/clarifaiapi";
-import { filterAction } from "../types";
+import * as api from "../../../../api/clarifaiapi";
+import { filterAction } from "../../../../store/types";
 
 const faceRecognitionEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(

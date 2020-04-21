@@ -1,5 +1,5 @@
 import { createSelector, Selector } from "reselect";
-import { RootState } from "../reducers";
+import { RootState } from "../../../../store/reducers";
 import { ClarifaiState } from "./types";
 
 export const getClarifaiState = (state: RootState) => state.clarifaiState;

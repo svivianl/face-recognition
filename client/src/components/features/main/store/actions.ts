@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { ImageUrl } from "../../types";
+import { ImageUrl } from "../../../../types";
 
 export enum ClarifaiActionsTypes {
   FaceRecognition = "Clarifai/FaceRecognition",
