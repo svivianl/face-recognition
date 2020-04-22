@@ -18,12 +18,12 @@
       "type": "png"
     },
     {
-      "src": "mslite-150x150.png",
+      "src": "android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "png"
     },
     {
-      "src": "mslite-150x150.png",
+      "src": "android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "png"
     }
