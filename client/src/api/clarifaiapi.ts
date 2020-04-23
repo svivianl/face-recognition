@@ -1,4 +1,4 @@
-import { http, getCancelTokenSource, isRequestCancellation } from "./http/http";
+import { http, getCancelTokenSource, subscribeApiError } from "./http/http";
 import { ImageUrl } from "../types";
 import { Observable } from "rxjs";
 
@@ -18,12 +18,7 @@ export const faceRecognition$ = (inputBody: ImageUrl): Observable<any> => {
         subscriber.next(response);
         subscriber.complete();
       })
-      .catch((error) => {
-        console.log("api error: ", error);
-        if (!isRequestCancellation(error)) {
-          subscriber.error(error);
-        }
-      });
+      .catch((error) => subscribeApiError(error)(subscriber));
     return () => {
       source.cancel();
     };

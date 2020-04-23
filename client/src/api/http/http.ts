@@ -51,3 +51,13 @@ export const getCancelTokenSource = (): CancelTokenSource => {
 export const isRequestCancellation = (error: any) => axios.isCancel(error);
 
 export const http = instance;
+
+export const subscribeApiError = (error: any) => (subscriber: any) => {
+  if (!isRequestCancellation(error)) {
+    const message =
+      error.messages && error.messages[0] && error.messages[0].message
+        ? { message: error.messages[0].message }
+        : error;
+    subscriber.error(message);
+  }
+};

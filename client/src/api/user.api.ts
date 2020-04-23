@@ -1,4 +1,4 @@
-import { http, getCancelTokenSource, isRequestCancellation } from "./http/http";
+import { http, getCancelTokenSource, subscribeApiError } from "./http/http";
 import { User, SignIn, Token, Register } from "../types";
 import { Observable } from "rxjs";
 
@@ -18,12 +18,7 @@ export const register$ = (userBody: Register): Observable<User> => {
         subscriber.next(response);
         subscriber.complete();
       })
-      .catch((error) => {
-        console.log("api error: ", error);
-        if (!isRequestCancellation(error)) {
-          subscriber.error(error);
-        }
-      });
+      .catch((error) => subscribeApiError(error)(subscriber));
     return () => {
       source.cancel();
     };
@@ -42,14 +37,7 @@ export const signIn$ = (userBody: SignIn): Observable<User> => {
         subscriber.next(response);
         subscriber.complete();
       })
-      .catch((error) => {
-        const message =
-          (error.messages && error.messages[0] && error.messages[0].message) ||
-          error;
-        if (!isRequestCancellation(message)) {
-          subscriber.error({ message });
-        }
-      });
+      .catch((error) => subscribeApiError(error)(subscriber));
     return () => {
       source.cancel();
     };
@@ -68,12 +56,7 @@ export const updateEntries$ = (token: Token): Observable<User> => {
         subscriber.next(response);
         subscriber.complete();
       })
-      .catch((error) => {
-        console.log("api error: ", error);
-        if (!isRequestCancellation(error)) {
-          subscriber.error(error);
-        }
-      });
+      .catch((error) => subscribeApiError(error)(subscriber));
     return () => {
       source.cancel();
     };
