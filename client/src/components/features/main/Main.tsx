@@ -9,8 +9,8 @@ import * as clarifaiStore from "./store/store";
 import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 
-const calculateFacesLocation = (regions) => {
-  return regions.map((region) => {
+const calculateFacesLocation = (regions: any) => {
+  return regions.map((region: any) => {
     const clarifaiFace = region.region_info.bounding_box;
 
     return {
@@ -28,7 +28,7 @@ const Main = () => {
   const [error, setError] = useState("");
   const [faces, setFaces] = useState([]);
   const dispatch = useDispatch();
-  const { token } = useSelector(store.userSelectors.getUser);
+  const { token = "" } = useSelector(store.userSelectors.getUser);
   const regions = useSelector(clarifaiStore.clarifaiSelectors.getRegions);
   const url = useSelector(clarifaiStore.clarifaiSelectors.getUrl);
   const isLoadingUser = useSelector(store.userSelectors.getIsLoading);
@@ -46,8 +46,7 @@ const Main = () => {
     }
   }, [regions, token, url, dispatch]);
 
-  const handleChange = (e) => {
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError("");
     setInputUrl(e.target.value);
     setFaces([]);
@@ -55,8 +54,7 @@ const Main = () => {
     e.preventDefault();
   };
 
-  const handleSubmit = (e) => {
-    // const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setFaces([]);
     if (!inputUrl) {
       setError("Please insert a valid URL");
