@@ -26,7 +26,7 @@ describe("FormView component", () => {
   });
 
   it("should change input url", () => {
-    expect.assertions(3);
+    expect.assertions(2);
 
     const input = "https://samples.clarifai";
     const mockEvent = {
@@ -39,6 +39,5 @@ describe("FormView component", () => {
     expect(component.length).toBe(1);
     component.at(0).simulate("change", mockEvent);
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock).toMatchSnapshot();
   });
 });

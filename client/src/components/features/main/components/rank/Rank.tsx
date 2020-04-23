@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, FunctionComponent } from "react";
 import { useSelector } from "react-redux";
 import * as store from "../../../../../store/users/store";
 import "../../../../../css/App.css";
 
-const Rank = () => {
+const Rank: FunctionComponent = () => {
   const user = useSelector(store.userSelectors.getUser);
   return (
     <Fragment>
