@@ -35,7 +35,11 @@ const FormView = ({
               {buttonText}
             </button>
           </div>
-          {error && <div className="text-danger">{error}</div>}
+          {error && (
+            <div>
+              <p className="text-danger">{error}</p>
+            </div>
+          )}
         </div>
       </form>
     </div>

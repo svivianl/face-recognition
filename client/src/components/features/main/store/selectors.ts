@@ -18,3 +18,13 @@ export const getIsLoading: Selector<RootState, boolean> = createSelector(
   getClarifaiState,
   (state: ClarifaiState) => state?.isLoading || false
 );
+
+export const getError: Selector<RootState, string> = createSelector(
+  getClarifaiState,
+  (state: ClarifaiState) =>
+    (state &&
+      state.status &&
+      state.status.error &&
+      state.status.error.message) ||
+    ""
+);

@@ -25,7 +25,7 @@ const calculateFacesLocation = (regions: any) => {
 const Main = () => {
   const [imageUrl, seImagetUrl] = useState("");
   const [inputUrl, setInputUrl] = useState("");
-  const [error, setError] = useState("");
+  const [inputError, setInputError] = useState("");
   const [faces, setFaces] = useState([]);
   const dispatch = useDispatch();
   const { token = "" } = useSelector(store.userSelectors.getUser);
@@ -36,6 +36,7 @@ const Main = () => {
     clarifaiStore.clarifaiSelectors.getIsLoading
   );
   const isLoading = isLoadingUser || isLoadingClarifai;
+  const error = useSelector(clarifaiStore.clarifaiSelectors.getError);
 
   useEffect(() => {
     if (regions.length) {
@@ -47,7 +48,7 @@ const Main = () => {
   }, [regions, token, url, dispatch]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError("");
+    setInputError("");
     setInputUrl(e.target.value);
     setFaces([]);
     seImagetUrl("");
@@ -57,10 +58,10 @@ const Main = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setFaces([]);
     if (!inputUrl) {
-      setError("Please insert a valid URL");
+      setInputError("Please insert a valid URL");
     }
 
-    if (!error) {
+    if (!inputError) {
       clarifaiStore.faceRecognition(dispatch)({ url: inputUrl, token });
     }
 
@@ -79,7 +80,7 @@ const Main = () => {
         buttonText={isLoading ? "Detecting" : "Detect"}
         buttonDisabled={isLoading ? true : false}
         url={inputUrl}
-        error={error}
+        error={inputError || error}
         onChange={handleChange}
         onSubmit={handleSubmit}
       />

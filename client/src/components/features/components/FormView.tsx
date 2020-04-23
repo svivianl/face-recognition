@@ -36,8 +36,8 @@ const FormView = ({
             />
           </div>
           {inputError && inputError.email && (
-            <div className="text-danger">
-              <p>{inputError.email}</p>
+            <div>
+              <p className="text-danger">{inputError.email}</p>
             </div>
           )}
         </div>
@@ -55,8 +55,8 @@ const FormView = ({
             />
           </div>
           {inputError && inputError.password && (
-            <div className="text-danger">
-              <p>{inputError.password}</p>
+            <div>
+              <p className="text-danger">{inputError.password}</p>
             </div>
           )}
         </div>

@@ -69,8 +69,8 @@ const Register = () => {
             />
           </div>
           {inputError && inputError.name && (
-            <div className="text-danger">
-              <p>{inputError.name}</p>
+            <div>
+              <p className="text-danger">{inputError.name}</p>
             </div>
           )}
         </div>

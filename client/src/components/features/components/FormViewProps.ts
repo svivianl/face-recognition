@@ -6,7 +6,7 @@ interface FormViewProps {
   buttonText: string;
   buttonDisabled: boolean;
   user: User | SignIn;
-  inputError: User | SignIn;
+  inputError?: User | SignIn;
   error?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
