@@ -7,6 +7,7 @@ const FormView = ({
   buttonText,
   buttonDisabled,
   user,
+  inputError,
   error,
   onChange,
   onSubmit,
@@ -14,7 +15,10 @@ const FormView = ({
 }: FormViewProps) => {
   return (
     <div className="border border-dark rounded form-container mt-5">
-      <h1 className="text-center mb-5">{name}</h1>
+      <div className="mb-5">
+        <h1 className="text-center">{name}</h1>
+        {error && <p className="text-danger text-center mb-3 mt-3">{error}</p>}
+      </div>
       <form>
         {children}
         <div className="form-group">
@@ -31,8 +35,10 @@ const FormView = ({
               value={user.email}
             />
           </div>
-          {error && error.email && (
-            <div className="text-danger">{error.email}</div>
+          {inputError && inputError.email && (
+            <div className="text-danger">
+              <p>{inputError.email}</p>
+            </div>
           )}
         </div>
         <div className="form-group column">
@@ -48,8 +54,10 @@ const FormView = ({
               value={user.password}
             />
           </div>
-          {error && error.password && (
-            <div className="text-danger">{error.password}</div>
+          {inputError && inputError.password && (
+            <div className="text-danger">
+              <p>{inputError.password}</p>
+            </div>
           )}
         </div>
         <div className="col text-center">

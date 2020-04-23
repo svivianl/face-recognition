@@ -15,7 +15,7 @@ export const userReducer = (
     case getType(UserActions.signIn):
     case getType(UserActions.updateEntries):
     case getType(UserActions.signOut):
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, status: null };
     case getType(UserActions.registerSuccess):
     case getType(UserActions.signInSuccess):
       return { ...state, user: payload, isLoading: false, status: null };

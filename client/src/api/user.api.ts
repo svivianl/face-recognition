@@ -43,9 +43,11 @@ export const signIn$ = (userBody: SignIn): Observable<User> => {
         subscriber.complete();
       })
       .catch((error) => {
-        console.log("api error: ", error);
-        if (!isRequestCancellation(error)) {
-          subscriber.error(error);
+        const message =
+          (error.messages && error.messages[0] && error.messages[0].message) ||
+          error;
+        if (!isRequestCancellation(message)) {
+          subscriber.error({ message });
         }
       });
     return () => {

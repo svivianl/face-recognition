@@ -15,20 +15,31 @@ function parseError(parameters: { messages: any }) {
 }
 
 const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_BASE_URL}`
+  baseURL: `${process.env.REACT_APP_API_BASE_URL}`,
 });
 
 instance.interceptors.request.use(
   (config: any) => config,
-  error => Promise.reject(error)
+  (error) => Promise.reject(error)
 );
 
 instance.interceptors.response.use(
-  response => response.data,
-  error => {
-    return error.response
-      ? parseError({ messages: error.response.data })
-      : Promise.reject(error);
+  (response) => response.data,
+  (error) => {
+    if (error.response) {
+      // Request made and server responded
+      return parseError({ messages: error.response.data });
+    }
+
+    if (error.request) {
+      // The request was made but no response was received
+      return Promise.reject({
+        messages: [{ message: "Server is down. Please contact the admin." }],
+      });
+    }
+
+    // Something happened in setting up the request that triggered an Error
+    return Promise.reject({ messages: [{ message: error.message }] });
   }
 );
 

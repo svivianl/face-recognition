@@ -10,11 +10,12 @@ import "../../css/features/form.css";
 
 const Register = () => {
   const [user, setUser] = useState(UserInitialValues);
-  const [error, setError] = useState({} as User);
+  const [inputError, setInputError] = useState({} as User);
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
   const loggedUser = useSelector(store.userSelectors.getUser);
+  const error = useSelector(store.userSelectors.getError);
 
   useEffect(() => {
     if (loggedUser && loggedUser.token) {
@@ -23,7 +24,7 @@ const Register = () => {
   }, [loggedUser, history]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError({} as User);
+    setInputError({} as User);
     setUser({ ...user, [e.target.id]: e.target.value });
     e.preventDefault();
   };
@@ -31,7 +32,7 @@ const Register = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { error, errorMessages } = handleRegisterErrors(user);
 
-    setError(errorMessages);
+    setInputError(errorMessages);
 
     if (!error) {
       store.register(dispatch)(user);
@@ -48,6 +49,7 @@ const Register = () => {
         buttonText={isLoading ? "Registering" : "Register"}
         buttonDisabled={isLoading ? true : false}
         user={user}
+        inputError={inputError}
         error={error}
         onChange={handleChange}
         onSubmit={handleSubmit}
@@ -66,8 +68,10 @@ const Register = () => {
               value={user.name}
             />
           </div>
-          {error && error.name && (
-            <div className="text-danger">{error.name}</div>
+          {inputError && inputError.name && (
+            <div className="text-danger">
+              <p>{inputError.name}</p>
+            </div>
           )}
         </div>
       </FormView>

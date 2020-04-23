@@ -11,7 +11,7 @@ export const clarifaiReducer = (
 
   switch (type) {
     case getType(ClarifaiActions.faceRecognition):
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, status: null };
     case getType(ClarifaiActions.faceRecognitionSuccess):
       return {
         ...state,

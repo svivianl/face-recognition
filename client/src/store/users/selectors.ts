@@ -14,3 +14,13 @@ export const getIsLoading: Selector<RootState, boolean> = createSelector(
   getUsersState,
   (state: UserState) => state?.isLoading || false
 );
+
+export const getError: Selector<RootState, string> = createSelector(
+  getUsersState,
+  (state: UserState) =>
+    (state &&
+      state.status &&
+      state.status.error &&
+      state.status.error.message) ||
+    ""
+);

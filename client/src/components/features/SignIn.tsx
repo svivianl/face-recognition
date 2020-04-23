@@ -9,11 +9,12 @@ import * as store from "../../store/users/store";
 
 const SignIn = () => {
   const [user, setUser] = useState(SignInInitialValues);
-  const [error, setError] = useState({} as SingInType);
+  const [inputError, setInputError] = useState({} as SingInType);
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
   const loggedUser = useSelector(store.userSelectors.getUser);
+  const error = useSelector(store.userSelectors.getError);
 
   useEffect(() => {
     if (loggedUser && loggedUser.token) {
@@ -22,7 +23,7 @@ const SignIn = () => {
   }, [loggedUser, history]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError({} as SingInType);
+    setInputError({} as SingInType);
     setUser({ ...user, [e.target.id]: e.target.value });
     e.preventDefault();
   };
@@ -30,7 +31,7 @@ const SignIn = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { error, errorMessages } = handleSignInErrors(user);
 
-    setError(errorMessages);
+    setInputError(errorMessages);
 
     if (!error) {
       store.signIn(dispatch)(user);
@@ -47,6 +48,7 @@ const SignIn = () => {
         buttonText={isLoading ? "Signing in" : "Sign In"}
         buttonDisabled={isLoading ? true : false}
         user={user}
+        inputError={inputError}
         error={error}
         onChange={handleChange}
         onSubmit={handleSubmit}
