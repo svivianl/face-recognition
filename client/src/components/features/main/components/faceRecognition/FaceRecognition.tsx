@@ -3,6 +3,7 @@ import FaceRecognitionProps from "./FaceRecognitionProps";
 import "../../../../../css/features/main/components/faceRecognition/faceRecognition.css";
 
 const FaceRecognition = ({ imageUrl, faces }: FaceRecognitionProps) => {
+  console.log("FaceRecognition -> faces: ", faces);
   return (
     <div className="d-flex justify-content-center mt-3 mb-3">
       <div className="image-container position-relative">

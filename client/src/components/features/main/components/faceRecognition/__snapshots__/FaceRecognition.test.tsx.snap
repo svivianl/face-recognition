@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FaceRecognition component should render with the faces' regions 1`] = `ShallowWrapper {}`;
+
+exports[`FaceRecognition component should render without the faces' regions 1`] = `ShallowWrapper {}`;

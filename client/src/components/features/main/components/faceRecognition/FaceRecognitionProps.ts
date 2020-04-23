@@ -1,4 +1,4 @@
-interface Box {
+export interface Box {
   topRow: number;
   rightCol: number;
   bottomRow: number;
