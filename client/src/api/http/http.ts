@@ -39,7 +39,7 @@ instance.interceptors.response.use(
     }
 
     // Something happened in setting up the request that triggered an Error
-    return Promise.reject({ messages: [{ message: error.message }] });
+    return Promise.reject(error);
   }
 );
 
