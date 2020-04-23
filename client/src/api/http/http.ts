@@ -6,12 +6,10 @@ function parseError(parameters: { messages: any }) {
   if (messages) {
     if (messages instanceof Array) {
       return Promise.reject({ messages });
-    } else {
-      return Promise.reject({ messages: [messages] });
     }
-  } else {
-    return Promise.reject({ messages: ["Request error"] });
+    return Promise.reject({ messages: [messages] });
   }
+  return Promise.reject({ messages: ["Request error"] });
 }
 
 const instance = axios.create({
