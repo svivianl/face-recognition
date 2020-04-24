@@ -9,19 +9,6 @@ import * as clarifaiStore from "./store/store";
 import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 
-const calculateFacesLocation = (regions: any) => {
-  return regions.map((region: any) => {
-    const clarifaiFace = region.region_info.bounding_box;
-
-    return {
-      leftCol: clarifaiFace.left_col * 100,
-      topRow: clarifaiFace.top_row * 100,
-      rightCol: (1 - clarifaiFace.right_col) * 100,
-      bottomRow: (1 - clarifaiFace.bottom_row) * 100,
-    };
-  });
-};
-
 const Main = () => {
   const [imageUrl, seImagetUrl] = useState("");
   const [inputUrl, setInputUrl] = useState("");
@@ -40,7 +27,7 @@ const Main = () => {
 
   useEffect(() => {
     if (regions.length) {
-      setFaces(calculateFacesLocation(regions));
+      setFaces(regions);
       store.updateEntries(dispatch)({ token });
       seImagetUrl(url);
       setInputUrl("");

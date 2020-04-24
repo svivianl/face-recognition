@@ -13,6 +13,7 @@ export const clarifaiReducer = (
     case getType(ClarifaiActions.faceRecognition):
       return { ...state, isLoading: true, status: null };
     case getType(ClarifaiActions.faceRecognitionSuccess):
+      console.log(payload.regions);
       return {
         ...state,
         url: payload.url,
