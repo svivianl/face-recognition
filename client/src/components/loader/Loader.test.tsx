@@ -14,7 +14,7 @@ describe("Loader component", () => {
     const wrapper = shallow(<Loader showIf={true} />);
     const element = wrapper.find(`div.loader`);
     expect(element.length).toBe(1);
-    const elementCirular = wrapper.find(`div.loader`);
+    const elementCirular = wrapper.find(`div.circular-progress`);
     expect(elementCirular.length).toBe(1);
   });
 });
