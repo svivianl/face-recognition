@@ -5,7 +5,7 @@ import "../../../css/features/form.css";
 const FormView = ({
   name,
   buttonText,
-  buttonDisabled,
+  buttonDisabled = true,
   user,
   inputError,
   error,
@@ -17,7 +17,11 @@ const FormView = ({
     <div className="border border-dark rounded form-container mt-5">
       <div className="mb-5">
         <h1 className="text-center">{name}</h1>
-        {error && <p className="text-danger text-center mb-3 mt-3">{error}</p>}
+        {error && (
+          <p id="form-error" className="text-danger text-center mb-3 mt-3">
+            {error}
+          </p>
+        )}
       </div>
       <form>
         {children}
@@ -37,7 +41,9 @@ const FormView = ({
           </div>
           {inputError && inputError.email && (
             <div>
-              <p className="text-danger">{inputError.email}</p>
+              <p id="error-email" className="text-danger">
+                {inputError.email}
+              </p>
             </div>
           )}
         </div>
@@ -56,7 +62,9 @@ const FormView = ({
           </div>
           {inputError && inputError.password && (
             <div>
-              <p className="text-danger">{inputError.password}</p>
+              <p id="error-password" className="text-danger">
+                {inputError.password}
+              </p>
             </div>
           )}
         </div>
