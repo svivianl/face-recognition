@@ -5,18 +5,22 @@ describe("Clarifai Selectors", () => {
     const url = "https://samples.clarifai.com/face-det.jpg";
     const regions: any = [
       {
-        bottom_row: 0.47755477,
-        left_col: 0.21245633,
-        right_col: 0.30410764,
-        top_row: 0.30901453,
+        bottomRow: 52.244523,
+        leftCol: 21.245633,
+        rightCol: 69.589236,
+        topRow: 30.901453,
       },
       {
-        bounding_box: {
-          bottom_row: 0.35866204,
-          left_col: 0.68258256,
-          right_col: 0.74536127,
-          top_row: 0.21136338,
-        },
+        bottomRow: 64.133796,
+        leftCol: 68.25825599999999,
+        rightCol: 25.463873000000003,
+        topRow: 21.136338,
+      },
+      {
+        bottomRow: 40.807223,
+        leftCol: 77.968097,
+        rightCol: 14.986973999999996,
+        topRow: 41.064595999999995,
       },
     ];
     const mockParameters = {
