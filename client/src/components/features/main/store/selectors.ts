@@ -4,22 +4,22 @@ import { ClarifaiState } from "./types";
 
 export const getClarifaiState = (state: RootState) => state.clarifaiState;
 
-export const getUrl: Selector<RootState, string> = createSelector(
+export const getUrl = createSelector(
   getClarifaiState,
   (state: ClarifaiState) => state?.url || ""
 );
 
-export const getRegions: Selector<RootState, any> = createSelector(
+export const getRegions = createSelector(
   getClarifaiState,
   (state: ClarifaiState) => state?.regions || []
 );
 
-export const getIsLoading: Selector<RootState, boolean> = createSelector(
+export const getIsLoading = createSelector(
   getClarifaiState,
   (state: ClarifaiState) => state?.isLoading || false
 );
 
-export const getError: Selector<RootState, string> = createSelector(
+export const getError = createSelector(
   getClarifaiState,
   (state: ClarifaiState) =>
     (state &&

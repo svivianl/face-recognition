@@ -1,10 +1,7 @@
-import * as ClarifaiActions from "./actions";
-import { createClarifaiState } from "./types";
-import { clarifaiReducer } from "./reducer";
+import { getRegions } from "./selectors";
 
-describe("Clarifai Reducers", () => {
-  it("properly captures a dispatch to change clarifai's state", () => {
-    const initialState = createClarifaiState();
+describe("Clarifai Selectors", () => {
+  it("should return regions", () => {
     const url = "https://samples.clarifai.com/face-det.jpg";
     const regions: any = [
       {
@@ -22,16 +19,13 @@ describe("Clarifai Reducers", () => {
         },
       },
     ];
-    expect(
-      clarifaiReducer(
-        initialState,
-        ClarifaiActions.faceRecognitionSuccess({ url, regions })
-      )
-    ).toEqual({
+    const mockParameters = {
       isLoading: false,
       regions,
       status: null,
       url,
-    });
+    };
+    const selected = getRegions.resultFunc(mockParameters);
+    expect(selected).toEqual(regions);
   });
 });
