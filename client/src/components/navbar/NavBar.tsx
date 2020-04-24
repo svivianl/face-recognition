@@ -19,7 +19,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="d-flex justify-content-between align-items-center m-2">
+    <nav className="d-flex justify-content-between align-items-center m-2">
       <Logo />
       <div className="d-flex">
         {isLoggedOut ? (
@@ -41,7 +41,7 @@ const NavBar = () => {
           </Nav.Link>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 
