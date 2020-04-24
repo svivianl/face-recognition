@@ -16,7 +16,7 @@ describe("FormView component", () => {
     mockProps = {
       name: "Sign In",
       buttonText: "Sign in",
-      buttonDisabled: true,
+      buttonDisabled: false,
       user: {} as User,
       onChange: onChangeMock,
       onSubmit: onSubmitMock,
@@ -31,7 +31,7 @@ describe("FormView component", () => {
 
     const element = wrapper.find(`button`);
     expect(element.length).toBe(1);
-    expect(element.props().disabled).toBeTruthy();
+    expect(element.props().disabled).toBeFalsy();
 
     const elementError = wrapper.find(`h1`);
     expect(elementError.length).toBe(1);
@@ -135,18 +135,6 @@ describe("FormView component", () => {
     expect(element.text()).toBe(error);
   });
 
-  it("should change enable submit button when all fields are filled", () => {
-    expect.assertions(2);
-
-    const wrapper = mount(
-      <FormView {...mockProps} buttonDisabled={false} buttonText="Submit" />
-    );
-    const element = wrapper.find(`button`);
-
-    expect(element.length).toBe(1);
-    expect(element.props().disabled).toBeFalsy();
-  });
-
   it("should submit form", () => {
     expect.assertions(2);
 
@@ -154,9 +142,7 @@ describe("FormView component", () => {
       email: "john@doe.com",
       password: "1234567",
     };
-    const wrapper = mount(
-      <FormView {...mockProps} user={user} buttonDisabled={false} />
-    );
+    const wrapper = mount(<FormView {...mockProps} user={user} />);
     const element = wrapper.find(`button`);
     expect(element.length).toBe(1);
     element.at(0).simulate("click");

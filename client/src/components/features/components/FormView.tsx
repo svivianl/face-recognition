@@ -5,7 +5,7 @@ import "../../../css/features/form.css";
 const FormView = ({
   name,
   buttonText,
-  buttonDisabled = true,
+  buttonDisabled,
   user,
   inputError,
   error,
