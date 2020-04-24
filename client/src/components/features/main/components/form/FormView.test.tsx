@@ -34,10 +34,10 @@ describe("FormView component", () => {
       target: { value: input },
     } as React.ChangeEvent<HTMLInputElement>;
     const wrapper = mount(<FormView {...mockProps} />);
-    const component = wrapper.find(`[id="url"]`);
+    const element = wrapper.find(`[id="url"]`);
 
-    expect(component.length).toBe(1);
-    component.at(0).simulate("change", mockEvent);
+    expect(element.length).toBe(1);
+    element.at(0).simulate("change", mockEvent);
     expect(onChangeMock.mock.calls.length).toBe(1);
   });
 });
