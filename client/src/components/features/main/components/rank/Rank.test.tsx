@@ -2,19 +2,6 @@ import React from "react";
 import { shallow } from "enzyme";
 import * as Redux from "react-redux";
 import Rank from "./Rank";
-import { RootState } from "../../../../../store/reducers";
-import { UserState } from "../../../../../store/users/types";
-
-// describe("Rank component", () => {
-//   it("should not render without been logged in", () => {
-//     expect(shallow(<Rank />)).toMatchSnapshot();
-//   });
-
-//   it("should render when user is logged in", () => {
-
-//     expect(shallow(<Rank />)).toMatchSnapshot();
-//   });
-// });
 
 describe("Rank component", () => {
   let useSelectorSpy: jest.SpyInstance;
