@@ -3,8 +3,39 @@ import { of, Subject } from "rxjs";
 import * as clarifaiEpics from "./epics";
 import * as actions from "./actions";
 import { RootState } from "../../../../store/reducers";
+import { http } from "../../../../api/http/http";
+import * as api from "../../../../api/user.api";
 
 describe("Clarifai's epics", () => {
+  let token: string = "";
+  let apiError: string = "";
+
+  beforeEach((done) => {
+    const email = "john@doe.com";
+    const password = "1234567";
+    //login
+    http
+      .post(api.apiUrl("/signin"), { email, password })
+      .then((response: any) => {
+        token = response.token;
+        done();
+      })
+      .catch((error) => {
+        //register
+        const name = "John Doe";
+        http
+          .post(api.apiUrl("/register"), { name, email, password })
+          .then((response: any) => {
+            token = response.token;
+            done();
+          })
+          .catch((error) => {
+            apiError = error;
+            done();
+          });
+      });
+  });
+
   it("dispatches actions to change url and regions", (done) => {
     const ajax = () => of({});
     const state$ = new StateObservable<RootState>(
@@ -12,8 +43,6 @@ describe("Clarifai's epics", () => {
       undefined as any
     );
     const url = "https://samples.clarifai.com/face-det.jpg";
-    const token = "e1b5d5a4-7242-4ab3-89be-7417ee80b828";
-    // const token = "0d48c11f-a6b0-49dc-be35-1873af9f3624";
     const regions: any = [
       {
         bottomRow: 52.244523,
@@ -34,7 +63,6 @@ describe("Clarifai's epics", () => {
         topRow: 41.064595999999995,
       },
     ];
-
     const expectedOutput = {
       payload: {
         regions,
@@ -42,18 +70,15 @@ describe("Clarifai's epics", () => {
       },
       type: "Clarifai/FaceRecognitionSuccess",
     };
-
     const action$ = ActionsObservable.of(
       actions.faceRecognition({ url, token })
     );
-
     const faceRecognitionEpic = clarifaiEpics.default[0];
-
-    faceRecognitionEpic(action$, state$, { ajax })
-      // .toArray()
-      .subscribe((outputActions: any) => {
+    faceRecognitionEpic(action$, state$, { ajax }).subscribe(
+      (outputActions: any) => {
         expect(outputActions).toEqual(expectedOutput);
         done();
-      });
+      }
+    );
   });
 });

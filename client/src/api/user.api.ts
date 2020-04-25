@@ -2,7 +2,7 @@ import { http, getCancelTokenSource, subscribeApiError } from "./http/http";
 import { User, SignIn, Token, Register } from "../types";
 import { Observable } from "rxjs";
 
-const apiUrl = (path: string = "") => {
+export const apiUrl = (path: string = "") => {
   return `${process.env.REACT_APP_SERVER_API}/api${path}`;
 };
 
