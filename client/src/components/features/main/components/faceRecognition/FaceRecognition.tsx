@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import FaceRecognitionProps from "./FaceRecognitionProps";
 import "../../../../../css/features/main/components/faceRecognition/faceRecognition.css";
 
@@ -23,6 +24,19 @@ const FaceRecognition = ({ imageUrl, faces }: FaceRecognitionProps) => {
       </div>
     </div>
   );
+};
+
+FaceRecognition.propTypes = {
+  showIf: PropTypes.bool.isRequired,
+  imageUrl: PropTypes.string,
+  faces: PropTypes.arrayOf(
+    PropTypes.shape({
+      topRow: PropTypes.number.isRequired,
+      rightCol: PropTypes.number.isRequired,
+      bottomRow: PropTypes.number.isRequired,
+      leftCol: PropTypes.number.isRequired,
+    })
+  ),
 };
 
 export default FaceRecognition;

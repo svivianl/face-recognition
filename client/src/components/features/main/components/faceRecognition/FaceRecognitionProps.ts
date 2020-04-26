@@ -6,8 +6,8 @@ export interface Box {
 }
 
 interface FaceRecognitionProps {
-  imageUrl: string;
-  // faces?: Box;
+  showIf: boolean;
+  imageUrl?: string;
   faces?: Box[];
 }
 
