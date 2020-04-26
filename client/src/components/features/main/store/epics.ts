@@ -5,7 +5,7 @@ import Action from "../../../../store/action";
 import { RootState } from "../../../../store/reducers";
 import { isActionOf } from "typesafe-actions";
 import * as actions from "./actions";
-import * as api from "../../../../api/clarifaiapi";
+import * as api from "../../../../api/clarifai.api";
 import { filterAction } from "../../../../store/types";
 
 const faceRecognitionEpic: Epic<Action, Action, RootState> = (action$) =>

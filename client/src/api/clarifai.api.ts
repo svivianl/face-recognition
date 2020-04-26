@@ -2,7 +2,7 @@ import { http, getCancelTokenSource, subscribeApiError } from "./http/http";
 import { ImageUrl } from "../types";
 import { Observable } from "rxjs";
 
-const apiUrl = (path: string = "") => {
+export const apiUrl = (path: string = "") => {
   return `${process.env.REACT_APP_SERVER_API}/api/clarifai${path}`;
 };
 

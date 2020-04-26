@@ -1,12 +1,8 @@
-import { ActionsObservable, StateObservable } from "redux-observable";
-import { of, Subject } from "rxjs";
-import * as clarifaiEpics from "./epics";
-import * as actions from "./actions";
-import { RootState } from "../../../../store/reducers";
-import { http } from "../../../../api/http/http";
-import * as api from "../../../../api/user.api";
+import { http } from "./http/http";
+import * as api from "./user.api";
+import * as clarifaiApi from "./clarifai.api";
 
-describe("Clarifai's epics", () => {
+describe("Clarifai API", () => {
   let token: string = "";
   let apiError: string = "";
 
@@ -36,12 +32,7 @@ describe("Clarifai's epics", () => {
       });
   });
 
-  it("dispatches actions to change url and regions", (done) => {
-    const ajax = () => of({});
-    const state$ = new StateObservable<RootState>(
-      new Subject<RootState>(),
-      undefined as any
-    );
+  it("should call clarifai api", (done) => {
     const url = "https://samples.clarifai.com/face-det.jpg";
     const regions: any = [
       {
@@ -63,22 +54,16 @@ describe("Clarifai's epics", () => {
         topRow: 41.064595999999995,
       },
     ];
-    const expectedOutput = {
-      payload: {
-        regions,
-        url: "https://samples.clarifai.com/face-det.jpg",
-      },
-      type: "Clarifai/FaceRecognitionSuccess",
-    };
-    const action$ = ActionsObservable.of(
-      actions.faceRecognition({ url, token })
-    );
-    const faceRecognitionEpic = clarifaiEpics.default[0];
-    faceRecognitionEpic(action$, state$, { ajax }).subscribe(
-      (outputActions: any) => {
-        expect(outputActions).toMatchObject(expectedOutput);
+
+    http
+      .post(clarifaiApi.apiUrl("/face-recognition"), { token, url })
+      .then((response: any) => {
+        expect(response).toMatchObject(regions);
         done();
-      }
-    );
+      })
+      .catch((error) => {
+        apiError = error;
+        done();
+      });
   });
 });
