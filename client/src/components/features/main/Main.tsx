@@ -10,7 +10,7 @@ import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 
 const Main = () => {
-  const [imageUrl, seImagetUrl] = useState("");
+  const [imageUrl, setImagetUrl] = useState("");
   const [inputUrl, setInputUrl] = useState("");
   const [inputError, setInputError] = useState("");
   const [faces, setFaces] = useState([]);
@@ -25,11 +25,11 @@ const Main = () => {
   const isLoading = isLoadingUser || isLoadingClarifai;
   const error = useSelector(clarifaiStore.clarifaiSelectors.getError);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (regions.length) {
       setFaces(regions);
       store.updateEntries(dispatch)({ token });
-      seImagetUrl(url);
+      setImagetUrl(url);
       setInputUrl("");
     }
   }, [regions, token, url, dispatch]);
@@ -38,7 +38,7 @@ const Main = () => {
     setInputError("");
     setInputUrl(e.target.value);
     setFaces([]);
-    seImagetUrl("");
+    setImagetUrl("");
     e.preventDefault();
   };
 
@@ -71,7 +71,11 @@ const Main = () => {
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
-      <FaceRecognition imageUrl={imageUrl} faces={faces} />
+      <FaceRecognition
+        showIf={Boolean(imageUrl)}
+        imageUrl={imageUrl}
+        faces={faces}
+      />
       <Loader showIf={isLoading} />
     </Fragment>
   );
