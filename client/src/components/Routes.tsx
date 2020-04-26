@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router";
 import { useHistory } from "react-router-dom";
@@ -7,7 +7,7 @@ import SignIn from "./features/SignIn";
 import Main from "./features/main/Main";
 import * as store from "../store/users/store";
 
-const Routes = () => {
+const Routes: FunctionComponent = () => {
   const user = useSelector(store.userSelectors.getUser);
   const history = useHistory();
 
