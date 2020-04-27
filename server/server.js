@@ -9,6 +9,7 @@ const ENV = process.env.ENV || "development";
 
 const cors = require("cors");
 const express = require("express");
+const helmet = require("helmet");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 
@@ -24,6 +25,7 @@ const clarifaiRoutes = require("./routes/clarifai");
 /********************************************/
 /* Setup app                                */
 /********************************************/
+app.use(helmet());
 app.use(cors());
 app.use(morgan("combined"));
 app.use(bodyParser.json());
