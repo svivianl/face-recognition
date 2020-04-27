@@ -4,7 +4,7 @@ import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { particlesParams } from "./types";
 import Routes from "./Routes";
-import Navbar from "./navbar/NavigationBar";
+import Navbar from "./navbar/Navbar";
 import "../css/App.css";
 
 const history = createBrowserHistory();
