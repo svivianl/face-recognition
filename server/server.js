@@ -10,7 +10,7 @@ const ENV = process.env.ENV || "development";
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
-const expAutoSan = require("express-autosanitizer");
+const expressSanitizer = require("express-sanitizer");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 
@@ -44,7 +44,7 @@ app.use(helmet());
 app.use(cors(corsOptions));
 app.use(morgan("combined"));
 app.use(bodyParser.json());
-app.use(expAutoSan.all);
+app.use(expressSanitizer());
 
 /********************************************/
 /* Mount all resource routes                */

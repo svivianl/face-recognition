@@ -8,7 +8,7 @@ const app = new Clarifai.App({
 
 module.exports = {
   faceRecognition: (req, res) => {
-    const { url } = req.body;
+    const url = req.body.url && req.sanitize(req.body.url);
 
     if (!url) {
       res.status(440).json({

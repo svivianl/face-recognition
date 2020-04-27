@@ -17,7 +17,9 @@ module.exports = (knex) => {
 
   return {
     register: (req, res) => {
-      const { name, email, password } = req.body;
+      const name = req.body.name && req.sanitize(req.body.name);
+      const email = req.body.email && req.sanitize(req.body.email);
+      const password = req.body.password && req.sanitize(req.body.password);
 
       if (!name || !email || !password) {
         return res.status(400).json({
@@ -68,7 +70,8 @@ module.exports = (knex) => {
     },
 
     login: (req, res) => {
-      const { email, password } = req.body;
+      const email = req.body.email && req.sanitize(req.body.email);
+      const password = req.body.password && req.sanitize(req.body.password);
 
       if (!email || !password) {
         return res.status(400).json({
