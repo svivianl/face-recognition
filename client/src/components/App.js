@@ -4,7 +4,7 @@ import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { particlesParams } from "./types";
 import Routes from "./Routes";
-import NavBar from "./navbar/NavBar";
+import Navbar from "./navbar/Navbar";
 import "../css/App.css";
 
 const history = createBrowserHistory();
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Particles className="particles" params={particlesParams} />
       <header>
-        <NavBar />
+        <Navbar />
       </header>
       <main className="d-flex flex-column justify-content-center align-items-center mt-5 mb-5">
         <Router history={history}>
