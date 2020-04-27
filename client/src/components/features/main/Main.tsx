@@ -10,6 +10,7 @@ import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 
 const calculateFacesLocation = (regions: any) => {
+  console.log("calculateFacesLocation -> regions: ", regions);
   return regions;
 };
 
