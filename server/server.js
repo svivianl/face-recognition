@@ -23,10 +23,24 @@ const usersRoutes = require("./routes/users");
 const clarifaiRoutes = require("./routes/clarifai");
 
 /********************************************/
+/* Setup CORS                               */
+/********************************************/
+const whitelist = [process.env.WEBSITE];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+/********************************************/
 /* Setup app                                */
 /********************************************/
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan("combined"));
 app.use(bodyParser.json());
 
