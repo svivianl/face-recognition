@@ -30,6 +30,13 @@ export const handleSignInErrors = (user: SignIn) => {
     errorMessages["email"] = "Please insert your email address";
     error = true;
   }
+
+  const emailReg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  if (emailReg.test(email) === false) {
+    errorMessages["email"] = "Invalid Email Address";
+    error = true;
+  }
+
   if (!password) {
     errorMessages["password"] = "Please insert a password";
     error = true;
