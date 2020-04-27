@@ -9,6 +9,10 @@ import * as clarifaiStore from "./store/store";
 import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 
+const calculateFacesLocation = (regions: any) => {
+  return regions;
+};
+
 const Main = () => {
   const [imageUrl, setImagetUrl] = useState("");
   const [inputUrl, setInputUrl] = useState("");
@@ -27,7 +31,7 @@ const Main = () => {
 
   React.useEffect(() => {
     if (regions.length) {
-      setFaces(regions);
+      setFaces(calculateFacesLocation(regions));
       store.updateEntries(dispatch)({ token });
       setImagetUrl(url);
       setInputUrl("");
