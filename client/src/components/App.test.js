@@ -4,7 +4,7 @@ import App from "./App";
 import Particles from "react-particles-js";
 import { Router } from "react-router";
 import Routes from "./Routes";
-import Navbar from "./navbar/Navbar";
+import Navbar from "./navbar/NavigationBar";
 import { configureStore } from "../store";
 
 describe("App", () => {

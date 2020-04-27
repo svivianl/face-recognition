@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import * as Redux from "react-redux";
 import { Action } from "redux";
 import { Nav } from "react-bootstrap";
-import Navbar from "./Navbar";
+import Navbar from "./NavigationBar";
 import Logo from "./components/Logo";
 import { User } from "../../types";
 
