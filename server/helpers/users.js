@@ -3,6 +3,15 @@
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
 
+const checkEmailInput = (email) => {
+  const emailReg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  if (emailReg.test(email) === false) {
+    return "Invalid Email Address";
+  }
+
+  return false;
+};
+
 module.exports = (knex) => {
   const helpers = require("./index")(knex);
 
@@ -15,6 +24,11 @@ module.exports = (knex) => {
           message:
             "Incomplete form submitted. Please check fields and try again.",
         });
+      }
+
+      const emailInput = checkEmailInput(email);
+      if (emailInput) {
+        return res.status(400).json({ message: emailInput });
       }
 
       if (password.length < 2) {
@@ -55,11 +69,17 @@ module.exports = (knex) => {
 
     login: (req, res) => {
       const { email, password } = req.body;
+
       if (!email || !password) {
         return res.status(400).json({
           message:
             "Incomplete form submitted. Please check fields and try again.",
         });
+      }
+
+      const emailInput = checkEmailInput(email);
+      if (emailInput) {
+        return res.status(400).json({ message: emailInput });
       }
 
       knex
