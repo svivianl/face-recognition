@@ -5,7 +5,7 @@ import Logo from "./components/Logo";
 import * as store from "../../store/users/store";
 import "../../css/navbar/navbar.css";
 
-const Navbar = () => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const user = useSelector(store.userSelectors.getUser);
   const { token } = user;
@@ -45,4 +45,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

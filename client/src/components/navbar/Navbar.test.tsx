@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import * as Redux from "react-redux";
 import { Action } from "redux";
 import { Nav } from "react-bootstrap";
-import Navbar from "./Navbar";
+import NavBar from "./NavBar";
 import Logo from "./components/Logo";
 import { User } from "../../types";
 
@@ -22,7 +22,7 @@ describe("Navbar component", () => {
   it("should render Register and Sign In", () => {
     userUseSelectorSpy.mockReturnValue({} as User);
     expect.assertions(3);
-    const wrapper = shallow(<Navbar />);
+    const wrapper = shallow(<NavBar />);
     expect(wrapper.find(Logo).length).toEqual(1);
     expect(
       wrapper.containsMatchingElement(
@@ -44,7 +44,7 @@ describe("Navbar component", () => {
     });
 
     expect.assertions(2);
-    const wrapper = shallow(<Navbar />);
+    const wrapper = shallow(<NavBar />);
     expect(wrapper.find(Logo).length).toEqual(1);
     expect(
       wrapper.containsMatchingElement(
