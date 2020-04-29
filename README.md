@@ -23,3 +23,4 @@ Database
 ## Future Feature
 
 - add typescript on server
+- add profile page

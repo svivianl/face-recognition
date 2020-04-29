@@ -5,6 +5,7 @@ import { createBrowserHistory } from "history";
 import { particlesParams } from "./types";
 import Routes from "./Routes";
 import Navbar from "./navbar/Navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/App.css";
 
 const history = createBrowserHistory();
