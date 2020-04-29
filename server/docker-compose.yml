@@ -21,7 +21,6 @@ services:
   # PostgreSQL database
   postgres:
     environment:
-      DATABASE_URI: postgres://admin:postgres-password@localhost:5432/facerecognition
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: postgres-password
       POSTGRES_DB: facerecognition
