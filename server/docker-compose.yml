@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  #Backend api
+  server:
+    container_name: server
+    build: ./
+    command: npm run db
+    working_dir: /user/src/server
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./:/user/src/server
+    environment:
+      DATABASE_URI: postgres://admin:postgres-password@postgres:5432/facerecognition
+    links:
+      - postgres
+
+  # PostgreSQL database
+  postgres:
+    environment:
+      DATABASE_URI: postgres://admin:postgres-password@localhost:5432/facerecognition
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: postgres-password
+      POSTGRES_DB: facerecognition
+      POSTGRES_HOST: postgres
+    image: postgres
+    ports:
+      - "5432:5432"

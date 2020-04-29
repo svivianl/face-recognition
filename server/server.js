@@ -49,6 +49,7 @@ app.use(expressSanitizer());
 /********************************************/
 /* Mount all resource routes                */
 /********************************************/
+app.use("/", (req, res) => res.send("Server is up"));
 app.use("/api", usersRoutes(knex));
 app.use("/api/clarifai", clarifaiRoutes(knex));
 

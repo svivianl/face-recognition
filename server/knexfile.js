@@ -1,12 +1,10 @@
 require("dotenv").config();
 
-const connection = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=disable`;
-
 module.exports = {
   development: {
     client: "pg",
     version: "8.0",
-    connection,
+    connection: process.env.DATABASE_URI,
     migrations: {
       directory: "./db/migrations",
       tableName: "migrations",
@@ -18,7 +16,7 @@ module.exports = {
 
   production: {
     client: "postgresql",
-    connection: process.env.DATABASE_URL + "?ssl=true",
+    connection: process.env.DATABASE_URI + "?ssl=true",
     pool: {
       min: 2,
       max: 10,

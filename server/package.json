@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "star": "node server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "knex": "./node_modules/.bin/knex"
+    "knex": "./node_modules/.bin/knex",
+    "db": "knex migrate:rollback && knex migrate:latest && npm start"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
     "clarifai": "^2.9.1",
     "cors": "^2.8.5",
@@ -19,9 +20,10 @@
     "express": "^4.17.1",
     "express-sanitizer": "^1.0.5",
     "helmet": "^3.22.0",
-    "knex": "^0.20.14",
+    "knex": "^0.20.15",
     "morgan": "^1.10.0",
-    "pg": "^8.0.2",
+    "node-pre-gyp": "0.12.0",
+    "pg": "^8.0.3",
     "uuid": "^7.0.3"
   }
 }
