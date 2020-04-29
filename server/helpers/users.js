@@ -41,7 +41,7 @@ module.exports = (knex) => {
       }
 
       const token = uuid.v4();
-      const hashedPassword = bcrypt.hashSync(password, 10);
+      const hashedPassword = bcrypt.hashSync(password);
 
       knex
         .insert({
