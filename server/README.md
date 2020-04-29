@@ -28,3 +28,8 @@ DB_SSL
 | /api/signout                   | POST      |
 | /api/user                      | GET, POST |
 | /api/clarifai/face-recognition | POST      |
+
+## Run App
+
+- `npm start`
+- `docker-compose up`
