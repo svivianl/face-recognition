@@ -15,8 +15,10 @@ services:
       - ./:/user/src/server
     environment:
       DATABASE_URI: postgres://admin:postgres-password@postgres:5432/facerecognition
+      REDIS_URI: redis://redis:6379
     links:
       - postgres
+      - redis
 
   # PostgreSQL database
   postgres:
@@ -28,3 +30,12 @@ services:
     image: postgres
     ports:
       - "5432:5432"
+
+  # Redis
+  redis:
+    image: redis
+    container_name: "cache"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
