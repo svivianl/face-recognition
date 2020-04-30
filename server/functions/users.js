@@ -15,7 +15,26 @@ const checkEmailInput = (email) => {
 };
 
 module.exports = (knex) => {
-  const helpers = require("../helpers/index")(knex);
+  const getUserByToken = (token) => {
+    return new Promise(function (resolve, reject) {
+      knex
+        .select("name", "entries")
+        .from("login")
+        .innerJoin("users", "users.id", "login.user_id")
+        .where("login.token", token)
+        .then((result) => {
+          if (result.length !== 1) {
+            return reject({ message: "User not found" });
+          }
+
+          const { name, entries } = result[0];
+          return resolve({ name, entries, token });
+        })
+        .catch((err) => {
+          reject({ message: "Cannot find user." });
+        });
+    });
+  };
 
   const hanldeRegister = (req, res) => {
     return new Promise((resolve, reject) => {
@@ -63,7 +82,7 @@ module.exports = (knex) => {
               created_at: new Date(),
             })
             .then((login) => {
-              resolve({ name, token, entries: user.entries });
+              resolve({ token });
             });
         })
         .catch((error) => reject({ message: "Unable to register" }));
@@ -122,8 +141,8 @@ module.exports = (knex) => {
                     .then((result) => result[0])
                     .then((newToken) => {
                       return resolve({
-                        name: user.name,
-                        entries: user.entries,
+                        // name: user.name,
+                        // entries: user.entries,
                         token: newToken,
                       });
                     });
@@ -146,12 +165,21 @@ module.exports = (knex) => {
     });
   };
 
+  const hanldeGetUser = (req, res) => {
+    return new Promise((resolve, reject) => {
+      const { token } = req.body;
+
+      getUserByToken(token)
+        .then((user) => resolve(user))
+        .catch((error) => reject(error));
+    });
+  };
+
   const hanldePutUserImage = (req, res) => {
     return new Promise((resolve, reject) => {
       const { token } = req.body;
 
-      helpers
-        .getUserByToken(token)
+      getUserByToken(token)
         .then((result) => {
           const newEntries = parseInt(result.entries) + 1;
 
@@ -171,9 +199,11 @@ module.exports = (knex) => {
   };
 
   return {
+    getUserByToken,
     hanldeRegister,
     hanldeLogin,
     hanldeLogout,
+    hanldeGetUser,
     hanldePutUserImage,
   };
 };

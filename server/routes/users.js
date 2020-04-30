@@ -3,9 +3,9 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = (knex) => {
-  const middleware = require("../middleware/index")(knex);
-  const helperUsers = require("../helpers/users")(knex);
+module.exports = (knex, redisClient) => {
+  const middleware = require("../middleware/index")(knex, redisClient);
+  const helperUsers = require("../helpers/users")(knex, redisClient);
 
   router.route("/register").post(helperUsers.register);
 

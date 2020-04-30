@@ -13,11 +13,13 @@ const helmet = require("helmet");
 const expressSanitizer = require("express-sanitizer");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const redis = require("redis");
 
 const app = express();
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
+const redisClient = redis.createClient(process.env.REDIS_URI);
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -49,8 +51,8 @@ app.use(expressSanitizer());
 /********************************************/
 /* Mount all resource routes                */
 /********************************************/
-app.use("/api", usersRoutes(knex));
-app.use("/api/clarifai", clarifaiRoutes(knex));
+app.use("/api", usersRoutes(knex, redisClient));
+app.use("/api/clarifai", clarifaiRoutes(knex, redisClient));
 app.use("/", (req, res) => res.send("Server is up"));
 
 /********************************************/
