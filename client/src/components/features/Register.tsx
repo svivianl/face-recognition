@@ -6,6 +6,7 @@ import { User } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
 import * as store from "../../store/users/store";
+import { saveAuthToken } from "./types";
 import "../../css/features/form.css";
 
 const Register = () => {
@@ -15,6 +16,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
   const loggedUser = useSelector(store.userSelectors.getUser);
+  const token = useSelector(store.userSelectors.getToken);
   const error = useSelector(store.userSelectors.getError);
 
   useEffect(() => {
@@ -22,6 +24,13 @@ const Register = () => {
       history.push("/");
     }
   }, [loggedUser, history]);
+
+  useEffect(() => {
+    if (token) {
+      saveAuthToken(token);
+      history.push("/");
+    }
+  }, [token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputError({} as User);

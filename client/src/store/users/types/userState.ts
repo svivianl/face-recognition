@@ -16,6 +16,7 @@ export interface Status {
 
 export interface UserState {
   isLoading: boolean;
+  token: string;
   user: User;
   status: Status | null;
 }

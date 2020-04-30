@@ -44,6 +44,47 @@ export const signIn$ = (userBody: SignIn): Observable<User> => {
   });
 };
 
+export const getUser$ = (token: String): Observable<User> => {
+  return new Observable((subscriber) => {
+    const source = getCancelTokenSource();
+    const config = {
+      cancelToken: source.token,
+    };
+
+    http
+      .post(apiUrl("/user"), token, config)
+      .then((response: any) => {
+        subscriber.next(response);
+        subscriber.complete();
+      })
+      .catch((error) => subscribeApiError(error)(subscriber));
+    return () => {
+      source.cancel();
+    };
+  });
+};
+
+export const update$ = (userBody: User): Observable<User> => {
+  return new Observable((subscriber) => {
+    const source = getCancelTokenSource();
+    const config = {
+      cancelToken: source.token,
+    };
+    const { token, name } = userBody;
+
+    http
+      .post(apiUrl("/user"), token, config)
+      .then((response: any) => {
+        subscriber.next(response);
+        subscriber.complete();
+      })
+      .catch((error) => subscribeApiError(error)(subscriber));
+    return () => {
+      source.cancel();
+    };
+  });
+};
+
 export const updateEntries$ = (token: Token): Observable<User> => {
   return new Observable((subscriber) => {
     const source = getCancelTokenSource();

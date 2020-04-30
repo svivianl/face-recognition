@@ -5,6 +5,7 @@ import { handleSignInErrors, SignInInitialValues } from "../types";
 import { SignIn as SingInType } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
+import { saveAuthToken } from "./types";
 import * as store from "../../store/users/store";
 
 const SignIn = () => {
@@ -14,6 +15,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
   const loggedUser = useSelector(store.userSelectors.getUser);
+  const token = useSelector(store.userSelectors.getToken);
   const error = useSelector(store.userSelectors.getError);
 
   useEffect(() => {
@@ -21,6 +23,13 @@ const SignIn = () => {
       history.push("/");
     }
   }, [loggedUser, history]);
+
+  useEffect(() => {
+    if (token) {
+      saveAuthToken(token);
+      history.push("/");
+    }
+  }, [token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputError({} as SingInType);

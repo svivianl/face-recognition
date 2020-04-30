@@ -5,6 +5,11 @@ import { UserState } from "./types";
 
 export const getUsersState = (state: RootState) => state.userState;
 
+export const getToken: Selector<RootState, string> = createSelector(
+  getUsersState,
+  (state: UserState) => state?.token || ""
+);
+
 export const getUser: Selector<RootState, User> = createSelector(
   getUsersState,
   (state: UserState) => state?.user || {}

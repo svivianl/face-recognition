@@ -8,10 +8,10 @@ import Main from "./features/main/Main";
 import * as store from "../store/users/store";
 
 const Routes: FunctionComponent = () => {
-  const user = useSelector(store.userSelectors.getUser);
+  const token = useSelector(store.userSelectors.getToken);
   const history = useHistory();
 
-  const isLoggedOut = !user || !user.token;
+  const isLoggedOut = !token;
 
   if (history.location.pathname === "/" && isLoggedOut) {
     return <Redirect to="/signin" />;

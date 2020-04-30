@@ -15,7 +15,7 @@ const registerEpic: Epic<Action, Action, RootState> = (action$) =>
     switchMap((userBody) =>
       from(api.register$(userBody)).pipe(
         takeUntil(filterAction(action$, actions.registerCancel)),
-        map((user) => actions.registerSuccess(user)),
+        map(({ token }) => actions.registerSuccess(token || "")),
         catchError((error) => {
           console.error("error: ", error);
           return of(actions.registerError(error));
@@ -31,10 +31,42 @@ const signInEpic: Epic<Action, Action, RootState> = (action$) =>
     switchMap((userBody) =>
       from(api.signIn$(userBody)).pipe(
         takeUntil(filterAction(action$, actions.signInCancel)),
-        map((user) => actions.signInSuccess(user)),
+        map(({ token }) => actions.signInSuccess(token || "")),
         catchError((error) => {
           console.error("error: ", error);
           return of(actions.signInError(error));
+        })
+      )
+    )
+  );
+
+// const getUserEpic: Epic<Action, Action, RootState> = (action$) =>
+//   action$.pipe(
+//     filter(isActionOf(actions.getUser)),
+//     map((action) => action.payload),
+//     switchMap((token) =>
+//       from(api.getUser$(token)).pipe(
+//         takeUntil(filterAction(action$, actions.getUserCancel)),
+//         map((user) => actions.getUserSuccess(user)),
+//         catchError((error) => {
+//           console.error("error: ", error);
+//           return of(actions.getUserError(error));
+//         })
+//       )
+//     )
+//   );
+
+const updateUserEpic: Epic<Action, Action, RootState> = (action$) =>
+  action$.pipe(
+    filter(isActionOf(actions.update)),
+    map((action) => action.payload),
+    switchMap((userBody) =>
+      from(api.update$(userBody)).pipe(
+        takeUntil(filterAction(action$, actions.updateCancel)),
+        map((user) => actions.updateSuccess(user)),
+        catchError((error) => {
+          console.error("error: ", error);
+          return of(actions.updateError(error));
         })
       )
     )
@@ -72,4 +104,11 @@ const signOutEpic: Epic<Action, Action, RootState> = (action$) =>
     )
   );
 
-export default [registerEpic, signInEpic, updateEntriesEpic, signOutEpic];
+export default [
+  registerEpic,
+  signInEpic,
+  // getUserEpic,
+  updateUserEpic,
+  updateEntriesEpic,
+  signOutEpic,
+];

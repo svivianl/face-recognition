@@ -2,22 +2,30 @@ import { createAction } from "typesafe-actions";
 import { User, SignIn, Token, Register } from "../../types";
 
 export enum UserActionsTypes {
-  Register = "User/Register",
-  RegisterSuccess = "User/RegisterSuccess",
-  RegisterError = "User/RegisterError",
-  RegisterCancel = "User/RegisterCancel",
-  SignIn = "User/SignIn",
-  SignInSuccess = "User/SignInSuccess",
-  SignInError = "User/SignInError",
-  SignInCancel = "User/SignInCancel",
-  updateEntries = "User/updateEntries",
-  updateEntriesSuccess = "User/updateEntriesSuccess",
-  updateEntriesError = "User/updateEntriesError",
-  updateEntriesCancel = "User/updateEntriesCancel",
-  SignOut = "User/SignOut",
-  SignOutSuccess = "User/SignOutSuccess",
-  SignOutError = "User/SignOutError",
-  SignOutCancel = "User/SignOutCancel",
+  Register = "user/Register",
+  RegisterSuccess = "user/RegisterSuccess",
+  RegisterError = "user/RegisterError",
+  RegisterCancel = "user/RegisterCancel",
+  SignIn = "user/SignIn",
+  SignInSuccess = "user/SignInSuccess",
+  SignInError = "user/SignInError",
+  SignInCancel = "user/SignInCancel",
+  GetUser = "user/GetUser",
+  GetUserSuccess = "user/GetUserSuccess",
+  GetUserError = "user/GetUserError",
+  GetUserCancel = "user/GetUserCancel",
+  Update = "user/update",
+  UpdateSuccess = "user/UpdateSuccess",
+  UpdateError = "user/UpdateError",
+  UpdateCancel = "user/UpdateCancel",
+  UpdateEntries = "user/UpdateEntries",
+  UpdateEntriesSuccess = "user/UpdateEntriesSuccess",
+  UpdateEntriesError = "user/UpdateEntriesError",
+  UpdateEntriesCancel = "user/UpdateEntriesCancel",
+  SignOut = "user/SignOut",
+  SignOutSuccess = "user/SignOutSuccess",
+  SignOutError = "user/SignOutError",
+  SignOutCancel = "user/SignOutCancel",
 }
 
 export const register = createAction(
@@ -27,7 +35,7 @@ export const register = createAction(
 
 export const registerSuccess = createAction(
   UserActionsTypes.RegisterSuccess,
-  (user: User) => user
+  (token: string) => token
 )();
 
 export const registerError = createAction(
@@ -44,7 +52,7 @@ export const signIn = createAction(
 
 export const signInSuccess = createAction(
   UserActionsTypes.SignInSuccess,
-  (user: User) => user
+  (token: string) => token
 )();
 
 export const signInError = createAction(
@@ -54,23 +62,57 @@ export const signInError = createAction(
 
 export const signInCancel = createAction(UserActionsTypes.SignInCancel)();
 
+export const getUser = createAction(
+  UserActionsTypes.GetUser,
+  (token: Token) => token
+)();
+
+export const getUserSuccess = createAction(
+  UserActionsTypes.GetUserSuccess,
+  (user: User) => user
+)();
+
+export const getUserError = createAction(
+  UserActionsTypes.GetUserError,
+  (error: Error) => ({ message: error.message, type: "get-user" })
+)();
+
+export const getUserCancel = createAction(UserActionsTypes.GetUserCancel)();
+
+export const update = createAction(
+  UserActionsTypes.Update,
+  (user: User) => user
+)();
+
+export const updateSuccess = createAction(
+  UserActionsTypes.UpdateSuccess,
+  (user: User) => user
+)();
+
+export const updateError = createAction(
+  UserActionsTypes.UpdateError,
+  (error: Error) => ({ message: error.message, type: "update-user" })
+)();
+
+export const updateCancel = createAction(UserActionsTypes.UpdateCancel)();
+
 export const updateEntries = createAction(
-  UserActionsTypes.updateEntries,
+  UserActionsTypes.UpdateEntries,
   (token: Token) => token
 )();
 
 export const updateEntriesSuccess = createAction(
-  UserActionsTypes.updateEntriesSuccess,
+  UserActionsTypes.UpdateEntriesSuccess,
   (user: User) => user
 )();
 
 export const updateEntriesError = createAction(
-  UserActionsTypes.updateEntriesError,
+  UserActionsTypes.UpdateEntriesError,
   (error: Error) => ({ message: error.message, type: "update-user-entries" })
 )();
 
 export const updateEntriesCancel = createAction(
-  UserActionsTypes.updateEntriesCancel
+  UserActionsTypes.UpdateEntriesCancel
 )();
 
 export const signOut = createAction(
