@@ -1,4 +1,4 @@
-import { createSelector, Selector } from "reselect";
+import { createSelector } from "reselect";
 import { RootState } from "../../../../store/reducers";
 import { ClarifaiState } from "./types";
 

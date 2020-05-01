@@ -19,13 +19,13 @@ const Routes: FunctionComponent = () => {
     if (token && user.id && !user.name) {
       store.getUser(dispatch)(user.id);
     }
-  }, [token, user]);
+  }, [dispatch, token, user]);
 
   useEffect(() => {
     if (token && (!user || (user && !user.id))) {
       store.signInToken(dispatch)();
     }
-  }, [token]);
+  }, [dispatch, token]);
 
   if (history.location.pathname === "/" && isLoggedOut) {
     return <Redirect to="/signin" />;

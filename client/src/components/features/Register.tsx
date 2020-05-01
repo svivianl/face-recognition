@@ -23,7 +23,7 @@ const Register = () => {
       saveAuthToken(token);
       history.push("/");
     }
-  }, [token]);
+  }, [token, history]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputError({} as UserBody);
