@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { handleRegisterErrors, UserInitialValues } from "../types";
-import { User } from "../../types";
+import { UserBody } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
 import * as store from "../../store/users/store";
@@ -11,7 +11,7 @@ import "../../css/features/form.css";
 
 const Register = () => {
   const [user, setUser] = useState(UserInitialValues);
-  const [inputError, setInputError] = useState({} as User);
+  const [inputError, setInputError] = useState({} as UserBody);
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
@@ -32,7 +32,7 @@ const Register = () => {
   }, [token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputError({} as User);
+    setInputError({} as UserBody);
     setUser({ ...user, [e.target.id]: e.target.value });
     e.preventDefault();
   };

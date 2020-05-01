@@ -15,7 +15,7 @@ const registerEpic: Epic<Action, Action, RootState> = (action$) =>
     switchMap((userBody) =>
       from(api.register$(userBody)).pipe(
         takeUntil(filterAction(action$, actions.registerCancel)),
-        map(({ token }) => actions.registerSuccess(token || "")),
+        map((token) => actions.registerSuccess(token)),
         catchError((error) => {
           console.error("error: ", error);
           return of(actions.registerError(error));
@@ -31,7 +31,7 @@ const signInEpic: Epic<Action, Action, RootState> = (action$) =>
     switchMap((userBody) =>
       from(api.signIn$(userBody)).pipe(
         takeUntil(filterAction(action$, actions.signInCancel)),
-        map(({ token }) => actions.signInSuccess(token || "")),
+        map((token) => actions.signInSuccess(token)),
         catchError((error) => {
           console.error("error: ", error);
           return of(actions.signInError(error));
@@ -43,8 +43,9 @@ const signInEpic: Epic<Action, Action, RootState> = (action$) =>
 const getUserEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(
     filter(isActionOf(actions.getUser)),
-    switchMap(() =>
-      from(api.getUser()).pipe(
+    map((action) => action.payload),
+    switchMap((id) =>
+      from(api.getUser(id)).pipe(
         takeUntil(filterAction(action$, actions.getUserCancel)),
         map((user) => actions.getUserSuccess(user)),
         catchError((error) => {
@@ -55,27 +56,28 @@ const getUserEpic: Epic<Action, Action, RootState> = (action$) =>
     )
   );
 
-const updateUserEpic: Epic<Action, Action, RootState> = (action$) =>
-  action$.pipe(
-    filter(isActionOf(actions.update)),
-    map((action) => action.payload),
-    switchMap((userBody) =>
-      from(api.update$(userBody)).pipe(
-        takeUntil(filterAction(action$, actions.updateCancel)),
-        map((user) => actions.updateSuccess(user)),
-        catchError((error) => {
-          console.error("error: ", error);
-          return of(actions.updateError(error));
-        })
-      )
-    )
-  );
+// const updateUserEpic: Epic<Action, Action, RootState> = (action$) =>
+//   action$.pipe(
+//     filter(isActionOf(actions.update)),
+//     map((action) => action.payload),
+//     switchMap((userBody) =>
+//       from(api.update$(userBody)).pipe(
+//         takeUntil(filterAction(action$, actions.updateCancel)),
+//         map((user) => actions.updateSuccess(user)),
+//         catchError((error) => {
+//           console.error("error: ", error);
+//           return of(actions.updateError(error));
+//         })
+//       )
+//     )
+//   );
 
 const updateEntriesEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(
     filter(isActionOf(actions.updateEntries)),
-    switchMap(() =>
-      from(api.updateEntries$()).pipe(
+    map((action) => action.payload),
+    switchMap((id) =>
+      from(api.updateEntries$(id)).pipe(
         takeUntil(filterAction(action$, actions.updateEntriesCancel)),
         map((user) => actions.updateEntriesSuccess(user)),
         catchError((error) => {
@@ -105,7 +107,7 @@ export default [
   registerEpic,
   signInEpic,
   getUserEpic,
-  updateUserEpic,
+  // updateUserEpic,
   updateEntriesEpic,
   signOutEpic,
 ];

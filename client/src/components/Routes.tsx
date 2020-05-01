@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router";
 import { useHistory } from "react-router-dom";
 import Register from "./features/Register";
@@ -11,12 +11,13 @@ import * as store from "../store/users/store";
 const Routes: FunctionComponent = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector(store.userSelectors.getUser);
   const token = getToken();
   const isLoggedOut = !token;
 
   useEffect(() => {
-    if (token) {
-      store.getUser(dispatch)();
+    if (token && user.id) {
+      store.getUser(dispatch)(user.id);
     }
   }, [token]);
 

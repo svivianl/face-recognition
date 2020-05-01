@@ -15,10 +15,30 @@ const checkEmailInput = (email) => {
 };
 
 module.exports = (knex) => {
+  const getUserById = (id) => {
+    console.log("getUserById -> id", id);
+    return new Promise(function (resolve, reject) {
+      knex
+        .select("id", "name", "entries")
+        .from("users")
+        .where("id", id)
+        .then((result) => {
+          if (result.length !== 1) {
+            return reject({ message: "User not found" });
+          }
+
+          return resolve(result[0]);
+        })
+        .catch((err) => {
+          reject({ message: "Cannot find user." });
+        });
+    });
+  };
+
   const getUserByToken = (token) => {
     return new Promise(function (resolve, reject) {
       knex
-        .select("name", "entries")
+        .select("users.id", "name", "entries")
         .from("login")
         .innerJoin("users", "users.id", "login.user_id")
         .where("login.token", token)
@@ -27,8 +47,7 @@ module.exports = (knex) => {
             return reject({ message: "User not found" });
           }
 
-          const { name, entries } = result[0];
-          return resolve({ name, entries });
+          return resolve(result[0]);
         })
         .catch((err) => {
           reject({ message: "Cannot find user." });
@@ -82,7 +101,7 @@ module.exports = (knex) => {
               created_at: new Date(),
             })
             .then((login) => {
-              resolve({ token });
+              resolve({ token, id: user.id });
             });
         })
         .catch((error) => reject({ message: "Unable to register" }));
@@ -144,6 +163,7 @@ module.exports = (knex) => {
                         // name: user.name,
                         // entries: user.entries,
                         token: newToken,
+                        id: user.id,
                       });
                     });
                 })
@@ -165,30 +185,52 @@ module.exports = (knex) => {
     });
   };
 
-  const hanldePutUserImage = (req, res) => {
+  const hanldePutUserImage = (id) => {
     return new Promise((resolve, reject) => {
-      const { token } = req.body;
-
-      getUserByToken(token)
+      getUserById(id)
         .then((result) => {
           const newEntries = parseInt(result.entries) + 1;
 
           knex("users")
             .update({ entries: newEntries, updated_at: new Date() })
-            .whereIn("id", function () {
-              this.select("user_id").from("login").where("token", token);
-            })
+            .where("id", id)
             .returning("*")
+            .then((users) => users[0])
             .then((user) =>
-              resolve({ name: user[0].name, entries: user[0].entries, token })
+              resolve({ id, name: user.name, entries: user.entries })
             )
-            .catch((error) => reject({ message: "Unable to update user" }));
+            .catch((error) =>
+              reject({ message: "Unable to update user's entries" })
+            );
         })
         .catch((error) => reject(error));
     });
   };
+  // const hanldePutUserImage = (req, res) => {
+  //   return new Promise((resolve, reject) => {
+  //     const { token } = req.body;
+
+  //     getUserByToken(token)
+  //       .then((result) => {
+  //         const newEntries = parseInt(result.entries) + 1;
+
+  //         knex("users")
+  //           .update({ entries: newEntries, updated_at: new Date() })
+  //           .whereIn("id", function () {
+  //             this.select("user_id").from("login").where("token", token);
+  //           })
+  //           .returning("*")
+  //           .then((user) =>
+  //             resolve({ name: user[0].name, entries: user[0].entries, token })
+  //           )
+  //           .catch((error) => reject({ message: "Unable to update user" }));
+  //       })
+  //       .catch((error) => reject(error));
+  //   });
+  // };
 
   return {
+    getUserById,
     getUserByToken,
     hanldeRegister,
     hanldeLogin,

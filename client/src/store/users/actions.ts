@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { User, SignIn, Register } from "../../types";
+import { User, SignIn, Register, Token } from "../../types";
 
 export enum UserActionsTypes {
   Register = "user/Register",
@@ -35,7 +35,7 @@ export const register = createAction(
 
 export const registerSuccess = createAction(
   UserActionsTypes.RegisterSuccess,
-  (token: string) => token
+  (token: Token) => token
 )();
 
 export const registerError = createAction(
@@ -52,7 +52,7 @@ export const signIn = createAction(
 
 export const signInSuccess = createAction(
   UserActionsTypes.SignInSuccess,
-  (token: string) => token
+  (token: Token) => token
 )();
 
 export const signInError = createAction(
@@ -62,11 +62,14 @@ export const signInError = createAction(
 
 export const signInCancel = createAction(UserActionsTypes.SignInCancel)();
 
-export const getUser = createAction(UserActionsTypes.GetUser)();
+export const getUser = createAction(
+  UserActionsTypes.GetUser,
+  (id: number) => id
+)();
 
 export const getUserSuccess = createAction(
   UserActionsTypes.GetUserSuccess,
-  (user: User) => user
+  (user: any) => user
 )();
 
 export const getUserError = createAction(
@@ -76,24 +79,27 @@ export const getUserError = createAction(
 
 export const getUserCancel = createAction(UserActionsTypes.GetUserCancel)();
 
-export const update = createAction(
-  UserActionsTypes.Update,
-  (user: User) => user
-)();
+// export const update = createAction(
+//   UserActionsTypes.Update,
+//   (user: User) => user
+// )();
 
-export const updateSuccess = createAction(
-  UserActionsTypes.UpdateSuccess,
-  (user: User) => user
-)();
+// export const updateSuccess = createAction(
+//   UserActionsTypes.UpdateSuccess,
+//   (user: User) => user
+// )();
 
-export const updateError = createAction(
-  UserActionsTypes.UpdateError,
-  (error: Error) => ({ message: error.message, type: "update-user" })
-)();
+// export const updateError = createAction(
+//   UserActionsTypes.UpdateError,
+//   (error: Error) => ({ message: error.message, type: "update-user" })
+// )();
 
 export const updateCancel = createAction(UserActionsTypes.UpdateCancel)();
 
-export const updateEntries = createAction(UserActionsTypes.UpdateEntries)();
+export const updateEntries = createAction(
+  UserActionsTypes.UpdateEntries,
+  (id: number) => id
+)();
 
 export const updateEntriesSuccess = createAction(
   UserActionsTypes.UpdateEntriesSuccess,

@@ -7,13 +7,18 @@ export interface Register extends SignIn {
   name: string;
 }
 
-export interface User {
+export interface UserBody {
   name?: string;
   email?: string;
   password?: string;
   entries?: BigInteger;
 }
 
+export interface User extends UserBody {
+  id: number;
+}
+
 export interface Token {
   token: string;
+  id: number;
 }

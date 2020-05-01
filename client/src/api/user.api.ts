@@ -44,10 +44,10 @@ export const signIn$ = (userBody: SignIn): Observable<Token> => {
   });
 };
 
-export const getUser = async () => {
-  const response = await http.get(apiUrl(`/user`));
+export const getUser = async (id: number) => {
+  const response = await http.get(apiUrl(`/user/${id}`));
   if (response.status === 200 && !response) {
-    return {};
+    return {} as User;
   }
   return response;
 };
@@ -60,7 +60,7 @@ export const update$ = (userBody: User): Observable<User> => {
     };
 
     http
-      .post(apiUrl("/user"), userBody, config)
+      .post(apiUrl(`/user/${userBody.id}`), userBody, config)
       .then((response: any) => {
         subscriber.next(response);
         subscriber.complete();
@@ -72,14 +72,14 @@ export const update$ = (userBody: User): Observable<User> => {
   });
 };
 
-export const updateEntries$ = (): Observable<User> => {
+export const updateEntries$ = (id: number): Observable<User> => {
   return new Observable((subscriber) => {
     const source = getCancelTokenSource();
     const config = {
       cancelToken: source.token,
     };
     http
-      .post(apiUrl("/user"), config)
+      .post(apiUrl(`/user/${id}/image`), config)
       .then((response: any) => {
         subscriber.next(response);
         subscriber.complete();

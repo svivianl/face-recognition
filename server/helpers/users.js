@@ -27,15 +27,13 @@ module.exports = (knex, redisClient) => {
   };
 
   const getUser = (req, res) => {
-    jwtFn
-      .getDbToken(req, res)
-      .then((token) => fn.getUserByToken(token))
+    fn.getUserById(req.params.userId)
       .then((data) => res.status(200).json(data))
       .catch((error) => res.status(400).json(error));
   };
 
-  const putUser = (req, res) => {
-    fn.hanldePutUserImage(req, res)
+  const putUserImage = (req, res) => {
+    fn.hanldePutUserImage(req.params.userId)
       .then((data) => res.status(200).json(data))
       .catch((error) => res.status(400).json(error));
   };
@@ -45,6 +43,6 @@ module.exports = (knex, redisClient) => {
     login,
     logout,
     getUser,
-    putUser,
+    putUserImage,
   };
 };

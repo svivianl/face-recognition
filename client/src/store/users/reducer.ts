@@ -21,17 +21,17 @@ export const userReducer = (
         status: null,
       };
     case getType(UserActions.getUser):
-    case getType(UserActions.update):
+    // case getType(UserActions.update):
     case getType(UserActions.updateEntries):
     case getType(UserActions.signOut):
       return { ...state, isLoading: true, status: null };
     case getType(UserActions.registerSuccess):
     case getType(UserActions.signInSuccess):
-      return { ...state, token: payload, isLoading: false, status: null };
+      const { token, id } = payload;
+      return { ...state, token, user: { id }, isLoading: false, status: null };
     case getType(UserActions.getUserSuccess):
-      console.log("payload", payload);
       return { ...state, user: payload, isLoading: false, status: null };
-    case getType(UserActions.updateSuccess):
+    // case getType(UserActions.updateSuccess):
     case getType(UserActions.updateEntriesSuccess):
       const updatedUser = { ...state.user, ...payload };
       return { ...state, user: updatedUser, isLoading: false, status: null };
@@ -46,7 +46,7 @@ export const userReducer = (
     case getType(UserActions.registerError):
     case getType(UserActions.signInError):
     case getType(UserActions.getUserError):
-    case getType(UserActions.updateError):
+    // case getType(UserActions.updateError):
     case getType(UserActions.updateEntriesError):
     case getType(UserActions.signOutError):
       return {
