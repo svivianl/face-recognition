@@ -15,7 +15,7 @@ const Main = () => {
   const [inputError, setInputError] = useState("");
   const [faces, setFaces] = useState([]);
   const dispatch = useDispatch();
-  const { token = "" } = useSelector(store.userSelectors.getUser);
+  const token = useSelector(store.userSelectors.getToken);
   const regions = useSelector(clarifaiStore.clarifaiSelectors.getRegions);
   const url = useSelector(clarifaiStore.clarifaiSelectors.getUrl);
   const isLoadingUser = useSelector(store.userSelectors.getIsLoading);

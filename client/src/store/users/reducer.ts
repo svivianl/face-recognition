@@ -29,6 +29,7 @@ export const userReducer = (
     case getType(UserActions.signInSuccess):
       return { ...state, token: payload, isLoading: false, status: null };
     case getType(UserActions.getUserSuccess):
+      console.log("payload", payload);
       return { ...state, user: payload, isLoading: false, status: null };
     case getType(UserActions.updateSuccess):
     case getType(UserActions.updateEntriesSuccess):

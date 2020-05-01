@@ -15,15 +15,14 @@ const Register = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
-  const loggedUser = useSelector(store.userSelectors.getUser);
   const token = useSelector(store.userSelectors.getToken);
   const error = useSelector(store.userSelectors.getError);
 
   useEffect(() => {
-    if (loggedUser && loggedUser.token) {
+    if (token) {
       history.push("/");
     }
-  }, [loggedUser, history]);
+  }, [token, history]);
 
   useEffect(() => {
     if (token) {

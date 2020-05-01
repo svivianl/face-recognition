@@ -35,29 +35,6 @@ module.exports = (redisClient) => {
     });
   };
 
-  // const getAuthTokenId = (req, res) => {
-  //   return new Promise((resolve, reject) => {
-  //     const { authorization } = req.headers;
-  //     if (!authorization) {
-  //       return reject({ message: "Unauthorized" });
-  //     }
-
-  //     token = authorization.replace(/^Bearer\s/g, "");
-  //     if (!token) {
-  //       return reject({ message: "Unauthorized" });
-  //     }
-
-  //     console.log("getAuthTokenId -> token", token);
-  //     redisClient.get(token, (err, reply) => {
-  //       console.log("getAuthTokenId -> err", err);
-  //       if (err || !reply) {
-  //         return reject({ message: "Unauthorized" });
-  //       }
-  //       console.log("getAuthTokenId -> reply: ", reply);
-  //       return resolve(reply);
-  //     });
-  //   });
-  // };
   const getAuthTokenId = (req, res) => {
     return new Promise((resolve, reject) => {
       getAuthToken(req, res)

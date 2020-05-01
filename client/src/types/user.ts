@@ -12,7 +12,6 @@ export interface User {
   email?: string;
   password?: string;
   entries?: BigInteger;
-  token?: string;
 }
 
 export interface Token {
