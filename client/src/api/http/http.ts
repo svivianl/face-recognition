@@ -1,4 +1,5 @@
 import axios, { CancelTokenSource } from "axios";
+import { prepHeaderWithAuthToken } from "./interceptors";
 
 function parseError(parameters: { messages: any }) {
   const messages = parameters.messages;
@@ -16,9 +17,8 @@ const instance = axios.create({
   baseURL: `${process.env.REACT_APP_API_BASE_URL}`,
 });
 
-instance.interceptors.request.use(
-  (config: any) => config,
-  (error) => Promise.reject(error)
+instance.interceptors.request.use(prepHeaderWithAuthToken, (error) =>
+  Promise.reject(error)
 );
 
 instance.interceptors.response.use(

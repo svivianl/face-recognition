@@ -6,7 +6,7 @@ import { User } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
 import * as store from "../../store/users/store";
-import { saveAuthToken } from "./types";
+import { saveAuthToken } from "../../types";
 import "../../css/features/form.css";
 
 const Register = () => {

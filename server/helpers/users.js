@@ -2,7 +2,8 @@
 
 module.exports = (knex, redisClient) => {
   const fn = require("../functions/users")(knex, redisClient);
-  const jwtFn = require("../functions/jwt")(knex, redisClient);
+  const jwtFn = require("../functions/jwt")(redisClient);
+  const redis = require("../functions/redis")(redisClient);
 
   const register = (req, res) => {
     fn.hanldeRegister(req, res)
@@ -19,13 +20,16 @@ module.exports = (knex, redisClient) => {
   };
 
   const logout = (req, res) => {
+    redis.delToken("token");
     fn.hanldeLogout(req, res)
       .then((data) => res.status(200).json(data))
       .catch((error) => res.status(400).json(error));
   };
 
   const getUser = (req, res) => {
-    fn.hanldeGetUser(req, res)
+    jwtFn
+      .getDbToken(req, res)
+      .then((token) => fn.getUserByToken(token))
       .then((data) => res.status(200).json(data))
       .catch((error) => res.status(400).json(error));
   };
@@ -40,6 +44,7 @@ module.exports = (knex, redisClient) => {
     register,
     login,
     logout,
+    getUser,
     putUser,
   };
 };

@@ -19,18 +19,60 @@ module.exports = (redisClient) => {
   //   });
   // };
 
-  const getAuthTokenId = (req, res) => {
+  const getAuthToken = (req, res) => {
     return new Promise((resolve, reject) => {
       const { authorization } = req.headers;
-      redisClient.get(authorization, (err, reply) => {
-        if (err || !reply) {
-          return reject({ message: "Unauthorized" });
-        }
-        console.log("getAuthTokenId -> reply: ", reply);
-        return resolve(reply);
-      });
+      if (!authorization) {
+        return reject({ message: "Unauthorized" });
+      }
+
+      token = authorization.replace(/^Bearer\s/g, "");
+      if (!token) {
+        return reject({ message: "Unauthorized" });
+      }
+
+      resolve(token);
     });
   };
 
-  return { setToken, getAuthTokenId };
+  // const getAuthTokenId = (req, res) => {
+  //   return new Promise((resolve, reject) => {
+  //     const { authorization } = req.headers;
+  //     if (!authorization) {
+  //       return reject({ message: "Unauthorized" });
+  //     }
+
+  //     token = authorization.replace(/^Bearer\s/g, "");
+  //     if (!token) {
+  //       return reject({ message: "Unauthorized" });
+  //     }
+
+  //     console.log("getAuthTokenId -> token", token);
+  //     redisClient.get(token, (err, reply) => {
+  //       console.log("getAuthTokenId -> err", err);
+  //       if (err || !reply) {
+  //         return reject({ message: "Unauthorized" });
+  //       }
+  //       console.log("getAuthTokenId -> reply: ", reply);
+  //       return resolve(reply);
+  //     });
+  //   });
+  // };
+  const getAuthTokenId = (req, res) => {
+    return new Promise((resolve, reject) => {
+      getAuthToken(req, res)
+        .then((token) =>
+          redisClient.get(token, (err, reply) => {
+            if (err || !reply) {
+              return reject({ message: "Unauthorized" });
+            }
+            return resolve(reply);
+          })
+        )
+        .catch((error) => reject(error));
+    });
+  };
+
+  const delToken = (key) => Promise.resolve(redisClient.del(key));
+  return { getAuthToken, setToken, getAuthTokenId, delToken };
 };

@@ -40,21 +40,20 @@ const signInEpic: Epic<Action, Action, RootState> = (action$) =>
     )
   );
 
-// const getUserEpic: Epic<Action, Action, RootState> = (action$) =>
-//   action$.pipe(
-//     filter(isActionOf(actions.getUser)),
-//     map((action) => action.payload),
-//     switchMap((token) =>
-//       from(api.getUser$(token)).pipe(
-//         takeUntil(filterAction(action$, actions.getUserCancel)),
-//         map((user) => actions.getUserSuccess(user)),
-//         catchError((error) => {
-//           console.error("error: ", error);
-//           return of(actions.getUserError(error));
-//         })
-//       )
-//     )
-//   );
+const getUserEpic: Epic<Action, Action, RootState> = (action$) =>
+  action$.pipe(
+    filter(isActionOf(actions.getUser)),
+    switchMap(() =>
+      from(api.getUser()).pipe(
+        takeUntil(filterAction(action$, actions.getUserCancel)),
+        map((user) => actions.getUserSuccess(user)),
+        catchError((error) => {
+          console.error("error: ", error);
+          return of(actions.getUserError(error));
+        })
+      )
+    )
+  );
 
 const updateUserEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(
@@ -75,9 +74,8 @@ const updateUserEpic: Epic<Action, Action, RootState> = (action$) =>
 const updateEntriesEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(
     filter(isActionOf(actions.updateEntries)),
-    map((action) => action.payload),
-    switchMap((token) =>
-      from(api.updateEntries$(token)).pipe(
+    switchMap(() =>
+      from(api.updateEntries$()).pipe(
         takeUntil(filterAction(action$, actions.updateEntriesCancel)),
         map((user) => actions.updateEntriesSuccess(user)),
         catchError((error) => {
@@ -91,9 +89,8 @@ const updateEntriesEpic: Epic<Action, Action, RootState> = (action$) =>
 const signOutEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(
     filter(isActionOf(actions.signOut)),
-    map((action) => action.payload),
-    switchMap((token) =>
-      from(api.signOut(token)).pipe(
+    switchMap(() =>
+      from(api.signOut()).pipe(
         takeUntil(filterAction(action$, actions.signOutCancel)),
         map(() => actions.signOutSuccess()),
         catchError((error) => {
@@ -107,7 +104,7 @@ const signOutEpic: Epic<Action, Action, RootState> = (action$) =>
 export default [
   registerEpic,
   signInEpic,
-  // getUserEpic,
+  getUserEpic,
   updateUserEpic,
   updateEntriesEpic,
   signOutEpic,

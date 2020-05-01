@@ -28,7 +28,7 @@ module.exports = (knex) => {
           }
 
           const { name, entries } = result[0];
-          return resolve({ name, entries, token });
+          return resolve({ name, entries });
         })
         .catch((err) => {
           reject({ message: "Cannot find user." });
@@ -165,16 +165,6 @@ module.exports = (knex) => {
     });
   };
 
-  const hanldeGetUser = (req, res) => {
-    return new Promise((resolve, reject) => {
-      const { token } = req.body;
-
-      getUserByToken(token)
-        .then((user) => resolve(user))
-        .catch((error) => reject(error));
-    });
-  };
-
   const hanldePutUserImage = (req, res) => {
     return new Promise((resolve, reject) => {
       const { token } = req.body;
@@ -203,7 +193,6 @@ module.exports = (knex) => {
     hanldeRegister,
     hanldeLogin,
     hanldeLogout,
-    hanldeGetUser,
     hanldePutUserImage,
   };
 };

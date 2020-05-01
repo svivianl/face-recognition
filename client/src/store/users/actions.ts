@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { User, SignIn, Token, Register } from "../../types";
+import { User, SignIn, Register } from "../../types";
 
 export enum UserActionsTypes {
   Register = "user/Register",
@@ -62,10 +62,7 @@ export const signInError = createAction(
 
 export const signInCancel = createAction(UserActionsTypes.SignInCancel)();
 
-export const getUser = createAction(
-  UserActionsTypes.GetUser,
-  (token: Token) => token
-)();
+export const getUser = createAction(UserActionsTypes.GetUser)();
 
 export const getUserSuccess = createAction(
   UserActionsTypes.GetUserSuccess,
@@ -96,10 +93,7 @@ export const updateError = createAction(
 
 export const updateCancel = createAction(UserActionsTypes.UpdateCancel)();
 
-export const updateEntries = createAction(
-  UserActionsTypes.UpdateEntries,
-  (token: Token) => token
-)();
+export const updateEntries = createAction(UserActionsTypes.UpdateEntries)();
 
 export const updateEntriesSuccess = createAction(
   UserActionsTypes.UpdateEntriesSuccess,
@@ -115,10 +109,7 @@ export const updateEntriesCancel = createAction(
   UserActionsTypes.UpdateEntriesCancel
 )();
 
-export const signOut = createAction(
-  UserActionsTypes.SignOut,
-  (token: Token) => token
-)();
+export const signOut = createAction(UserActionsTypes.SignOut)();
 
 export const signOutSuccess = createAction(UserActionsTypes.SignOutSuccess)();
 

@@ -10,7 +10,7 @@ module.exports = (knex, redisClient) => {
 
   router
     .route("/face-recognition")
-    .all(middleware.isLoggedIn)
+    .all(middleware.isAuthenticated)
     .post(helper.faceRecognition);
 
   return router;

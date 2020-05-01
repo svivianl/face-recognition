@@ -1,21 +1,22 @@
-import React, { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Nav } from "react-bootstrap";
 import Logo from "./components/Logo";
 import * as store from "../../store/users/store";
+import { getToken, clearToken } from "../../types";
 import "../../css/navbar/navbar.css";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector(store.userSelectors.getUser);
-  const { token } = user;
-
-  const isLoggedOut = !token;
+  // const isLoggedOut = true;
+  let isLoggedOut = true;
+  useEffect(() => {
+    isLoggedOut = !getToken();
+  }, []);
 
   const onSignOut = () => {
-    if (token) {
-      store.signOut(dispatch)({ token });
-    }
+    store.signOut(dispatch)();
+    clearToken();
   };
 
   return (

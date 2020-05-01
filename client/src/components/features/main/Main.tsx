@@ -28,7 +28,7 @@ const Main = () => {
   React.useEffect(() => {
     if (regions.length) {
       setFaces(regions);
-      store.updateEntries(dispatch)({ token });
+      store.updateEntries(dispatch)();
       setImagetUrl(url);
       setInputUrl("");
     }
@@ -49,7 +49,7 @@ const Main = () => {
     }
 
     if (!inputError) {
-      clarifaiStore.faceRecognition(dispatch)({ url: inputUrl, token });
+      clarifaiStore.faceRecognition(dispatch)({ url: inputUrl });
     }
 
     e.preventDefault();

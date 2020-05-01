@@ -5,7 +5,7 @@ import { handleSignInErrors, SignInInitialValues } from "../types";
 import { SignIn as SingInType } from "../../types";
 import FormView from "./components/FormView";
 import Loader from "../loader/Loader";
-import { saveAuthToken } from "./types";
+import { saveAuthToken } from "../../types";
 import * as store from "../../store/users/store";
 
 const SignIn = () => {

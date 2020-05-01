@@ -1,8 +1,8 @@
-module.exports = (knex, redisClient) => {
-  const jwt = require("../functions/jwt")(knex, redisClient);
+module.exports = (redisClient) => {
+  const jwt = require("../functions/jwt")(redisClient);
 
   return {
-    isLoggedIn: (req, res, next) => {
+    isAuthenticated: (req, res, next) => {
       jwt
         .isAuthenticated(req, res, next)
         .then((user) => next())
