@@ -5,6 +5,7 @@ import * as actions from "./actions";
 import { RootState } from "../../../../store/reducers";
 import { http } from "../../../../api/http/http";
 import * as api from "../../../../api/user.api";
+import { saveAuthToken } from "../../../../types";
 
 describe("Clarifai's epics", () => {
   let token: string = "";
@@ -37,6 +38,7 @@ describe("Clarifai's epics", () => {
   });
 
   it("dispatches actions to change url and regions", (done) => {
+    saveAuthToken(token);
     const ajax = () => of({});
     const state$ = new StateObservable<RootState>(
       new Subject<RootState>(),
@@ -70,9 +72,7 @@ describe("Clarifai's epics", () => {
       },
       type: "Clarifai/FaceRecognitionSuccess",
     };
-    const action$ = ActionsObservable.of(
-      actions.faceRecognition({ url, token })
-    );
+    const action$ = ActionsObservable.of(actions.faceRecognition({ url }));
     const faceRecognitionEpic = clarifaiEpics.default[0];
     faceRecognitionEpic(action$, state$, { ajax }).subscribe(
       (outputActions: any) => {

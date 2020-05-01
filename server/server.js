@@ -28,7 +28,9 @@ const clarifaiRoutes = require("./routes/clarifai");
 /********************************************/
 /* Setup CORS                               */
 /********************************************/
-const whitelist = [process.env.WEBSITE];
+const whitelist = "development"
+  ? [process.env.WEBSITE, process.env.LOCAL_WEBSITE]
+  : [process.env.WEBSITE];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
