@@ -1,6 +1,7 @@
 import { http, getCancelTokenSource, subscribeApiError } from "./http/http";
 import { User, Token, SignIn, Register } from "../types";
 import { Observable } from "rxjs";
+// import { saveAuthToken } from "../types";
 
 export const apiUrl = (path: string = "") => {
   return `${process.env.REACT_APP_SERVER_API}/api${path}`;
@@ -15,6 +16,7 @@ export const register$ = (userBody: Register): Observable<Token> => {
     http
       .post(apiUrl("/register"), userBody, config)
       .then((response: any) => {
+        // saveAuthToken(response.token);
         subscriber.next(response);
         subscriber.complete();
       })
@@ -34,6 +36,27 @@ export const signIn$ = (userBody: SignIn): Observable<Token> => {
     http
       .post(apiUrl("/signin"), userBody, config)
       .then((response: any) => {
+        // saveAuthToken(response.token);
+        subscriber.next(response);
+        subscriber.complete();
+      })
+      .catch((error) => subscribeApiError(error)(subscriber));
+    return () => {
+      source.cancel();
+    };
+  });
+};
+
+export const signInToken$ = (): Observable<Token> => {
+  return new Observable((subscriber) => {
+    const source = getCancelTokenSource();
+    const config = {
+      cancelToken: source.token,
+    };
+    http
+      .post(apiUrl("/signin"), config)
+      .then((response: any) => {
+        // saveAuthToken(response.token);
         subscriber.next(response);
         subscriber.complete();
       })
@@ -79,7 +102,7 @@ export const updateEntries$ = (id: number): Observable<User> => {
       cancelToken: source.token,
     };
     http
-      .post(apiUrl(`/user/${id}/image`), config)
+      .put(apiUrl(`/user/${id}/image`), config)
       .then((response: any) => {
         subscriber.next(response);
         subscriber.complete();

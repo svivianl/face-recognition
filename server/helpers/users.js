@@ -13,10 +13,22 @@ module.exports = (knex, redisClient) => {
   };
 
   const login = (req, res) => {
-    fn.hanldeLogin(req, res)
-      .then((data) => jwtFn.createSessions(data))
-      .then((data) => res.status(200).json(data))
-      .catch((error) => res.status(400).json(error));
+    const { authorization } = req.headers;
+    return authorization
+      ? redis
+          .getAuthTokenId(req, res)
+          .then((data) =>
+            jwtFn
+              .decodeToken(req, res)
+              .then((data) => res.status(200).json(data))
+              .catch((error) => res.status(400).json(error))
+          )
+          .catch((error) => res.status(400).json(error))
+      : fn
+          .hanldeLogin(req, res)
+          .then((data) => jwtFn.createSessions(data))
+          .then((data) => res.status(200).json(data))
+          .catch((error) => res.status(400).json(error));
   };
 
   const logout = (req, res) => {

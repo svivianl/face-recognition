@@ -40,6 +40,21 @@ const signInEpic: Epic<Action, Action, RootState> = (action$) =>
     )
   );
 
+const signInTokenEpic: Epic<Action, Action, RootState> = (action$) =>
+  action$.pipe(
+    filter(isActionOf(actions.signInToken)),
+    switchMap(() =>
+      from(api.signInToken$()).pipe(
+        takeUntil(filterAction(action$, actions.signInTokenCancel)),
+        map((token) => actions.signInTokenSuccess(token)),
+        catchError((error) => {
+          console.error("error: ", error);
+          return of(actions.signInTokenError(error));
+        })
+      )
+    )
+  );
+
 const getUserEpic: Epic<Action, Action, RootState> = (action$) =>
   action$.pipe(
     filter(isActionOf(actions.getUser)),
@@ -106,6 +121,7 @@ const signOutEpic: Epic<Action, Action, RootState> = (action$) =>
 export default [
   registerEpic,
   signInEpic,
+  signInTokenEpic,
   getUserEpic,
   // updateUserEpic,
   updateEntriesEpic,

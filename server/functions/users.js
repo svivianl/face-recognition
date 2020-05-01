@@ -16,7 +16,6 @@ const checkEmailInput = (email) => {
 
 module.exports = (knex) => {
   const getUserById = (id) => {
-    console.log("getUserById -> id", id);
     return new Promise(function (resolve, reject) {
       knex
         .select("id", "name", "entries")

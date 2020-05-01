@@ -10,6 +10,10 @@ export enum UserActionsTypes {
   SignInSuccess = "user/SignInSuccess",
   SignInError = "user/SignInError",
   SignInCancel = "user/SignInCancel",
+  SignInToken = "user/SignInToken",
+  SignInTokenSuccess = "user/SignInTokenSuccess",
+  SignInTokenError = "user/SignInTokenError",
+  SignInTokenCancel = "user/SignInTokenCancel",
   GetUser = "user/GetUser",
   GetUserSuccess = "user/GetUserSuccess",
   GetUserError = "user/GetUserError",
@@ -61,6 +65,22 @@ export const signInError = createAction(
 )();
 
 export const signInCancel = createAction(UserActionsTypes.SignInCancel)();
+
+export const signInToken = createAction(UserActionsTypes.SignInToken)();
+
+export const signInTokenSuccess = createAction(
+  UserActionsTypes.SignInTokenSuccess,
+  (token: Token) => token
+)();
+
+export const signInTokenError = createAction(
+  UserActionsTypes.SignInTokenError,
+  (error: Error) => ({ message: error.message, type: "signin-user" })
+)();
+
+export const signInTokenCancel = createAction(
+  UserActionsTypes.SignInTokenCancel
+)();
 
 export const getUser = createAction(
   UserActionsTypes.GetUser,

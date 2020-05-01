@@ -20,7 +20,7 @@ module.exports = (knex, redisClient) => {
     .route("/user/:userId/image")
     .all(middleware.isAuthenticated)
     .all(middleware.isAuthorized)
-    .post(helperUsers.putUserImage);
+    .put(helperUsers.putUserImage);
 
   router
     .route("/user/:userId")

@@ -6,6 +6,7 @@ import FaceRecognition from "./components/faceRecognition/FaceRecognition";
 import Loader from "../../loader/Loader";
 import * as store from "../../../store/users/store";
 import * as clarifaiStore from "./store/store";
+import { getToken } from "../../../types";
 import "../../../css/App.css";
 import "../../../css/features/main/main.css";
 
@@ -16,7 +17,6 @@ const Main = () => {
   const [faces, setFaces] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector(store.userSelectors.getUser);
-  const token = useSelector(store.userSelectors.getToken);
   const regions = useSelector(clarifaiStore.clarifaiSelectors.getRegions);
   const url = useSelector(clarifaiStore.clarifaiSelectors.getUrl);
   const isLoadingUser = useSelector(store.userSelectors.getIsLoading);
@@ -25,6 +25,7 @@ const Main = () => {
   );
   const isLoading = isLoadingUser || isLoadingClarifai;
   const error = useSelector(clarifaiStore.clarifaiSelectors.getError);
+  const token = getToken();
 
   React.useEffect(() => {
     if (regions.length) {

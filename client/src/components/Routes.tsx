@@ -16,8 +16,14 @@ const Routes: FunctionComponent = () => {
   const isLoggedOut = !token;
 
   useEffect(() => {
-    if (token && user.id) {
+    if (token && user.id && !user.name) {
       store.getUser(dispatch)(user.id);
+    }
+  }, [token, user]);
+
+  useEffect(() => {
+    if (token && (!user || (user && !user.id))) {
+      store.signInToken(dispatch)();
     }
   }, [token]);
 

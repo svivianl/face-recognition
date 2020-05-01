@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import * as actions from "./actions";
 import * as selectors from "./selectors";
-import { SignIn, Register, UserBody } from "../../types";
+import { SignIn, Register } from "../../types";
 
 export const register = (dispatch: Dispatch<any>) => (userBody: Register) => {
   dispatch(actions.register(userBody));
@@ -9,6 +9,10 @@ export const register = (dispatch: Dispatch<any>) => (userBody: Register) => {
 
 export const signIn = (dispatch: Dispatch<any>) => (userBody: SignIn) => {
   dispatch(actions.signIn(userBody));
+};
+
+export const signInToken = (dispatch: Dispatch<any>) => () => {
+  dispatch(actions.signInToken());
 };
 
 export const getUser = (dispatch: Dispatch<any>) => (id: number) => {

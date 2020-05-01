@@ -13,6 +13,7 @@ export const userReducer = (
   switch (type) {
     case getType(UserActions.register):
     case getType(UserActions.signIn):
+    case getType(UserActions.signInToken):
       return {
         ...state,
         isLoading: true,
@@ -27,6 +28,7 @@ export const userReducer = (
       return { ...state, isLoading: true, status: null };
     case getType(UserActions.registerSuccess):
     case getType(UserActions.signInSuccess):
+    case getType(UserActions.signInTokenSuccess):
       const { token, id } = payload;
       return { ...state, token, user: { id }, isLoading: false, status: null };
     case getType(UserActions.getUserSuccess):
@@ -45,6 +47,7 @@ export const userReducer = (
       };
     case getType(UserActions.registerError):
     case getType(UserActions.signInError):
+    case getType(UserActions.signInTokenError):
     case getType(UserActions.getUserError):
     // case getType(UserActions.updateError):
     case getType(UserActions.updateEntriesError):
@@ -59,6 +62,7 @@ export const userReducer = (
       };
     case getType(UserActions.registerCancel):
     case getType(UserActions.signInCancel):
+    case getType(UserActions.signInTokenCancel):
     case getType(UserActions.getUserCancel):
     case getType(UserActions.updateCancel):
     case getType(UserActions.updateEntriesCancel):

@@ -15,14 +15,21 @@ const Register = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector(store.userSelectors.getIsLoading);
+  // const { id } = useSelector(store.userSelectors.getUser);
   const token = useSelector(store.userSelectors.getToken);
   const error = useSelector(store.userSelectors.getError);
 
-  useEffect(() => {
-    if (token) {
-      history.push("/");
-    }
-  }, [token, history]);
+  // useEffect(() => {
+  //   if (id) {
+  //     history.push("/");
+  //   }
+  // }, [id, history]);
+
+  // useEffect(() => {
+  //   if (token) {
+  //     history.push("/");
+  //   }
+  // }, [token, history]);
 
   useEffect(() => {
     if (token) {
