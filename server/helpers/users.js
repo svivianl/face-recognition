@@ -20,7 +20,10 @@ module.exports = (knex, redisClient) => {
           .then((data) =>
             jwtFn
               .decodeToken(req, res)
-              .then((data) => res.status(200).json(data))
+              .then((data) => {
+                const { dbToken, id } = data;
+                res.status(200).json({ token: dbToken, id });
+              })
               .catch((error) => res.status(400).json(error))
           )
           .catch((error) => res.status(400).json(error))
