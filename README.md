@@ -4,21 +4,23 @@ A responsive face recognition app.
 
 ## Stack
 
-Frontend
+Front-end
 
 - React
 - Bootstrap
 - SASS
 - Typescript
 
-Backend
+Back-end
 
 - node
 - express
+- docker
 
 Database
 
 - Postgres SQL
+- Redis
 
 ## Future Feature
 

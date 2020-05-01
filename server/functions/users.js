@@ -205,7 +205,7 @@ module.exports = (knex) => {
         .catch((error) => reject(error));
     });
   };
-  // const hanldePutUserImage = (req, res) => {
+  // const hanldePutUser = (req, res) => {
   //   return new Promise((resolve, reject) => {
   //     const { token } = req.body;
 
