@@ -12,20 +12,21 @@ jobs:
       - node/with-cache:
           steps:
             - run: cd client && npm install
-            - run: cd client && CI=true npm run build
             - run: cd client && npm test
   build-and-test-server:
     docker:
       - image: circleci/node:10.16.3
-      # - image: circleci/postgres:8.0
-      # - image: circleci/redis:3.0
+      - image: circleci/postgres:8.0.3
+        environment: DATABASE_URI=postgres://postgres:postgres@postgres:5432/facerecognition?sslmode=disable
+      - image: circleci/redis:3.0.2
+        environment: REDIS_HOST='127.0.01'
     executor:
       name: node/default
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: cd server && docker-compose down && docker-compose up
+            - run: cd server && npm install
 workflows:
   build-and-test:
     jobs:
