@@ -12,31 +12,23 @@ jobs:
       - node/with-cache:
           steps:
             - run: cd client && npm install
-            # - run:
-            #   command: CI=true npm run build
-            #   working_directory: ../client
-            # - run:
-            #   command: npm test
-            #   working_directory: ../client
-  # build-and-test-server:
-  #   docker:
-  #     - image: circleci/node:10.16.3
-  #     - image: circleci/postgres:8.0
-  #     - image: circleci/redis:3.0
-  #   executor:
-  #     name: node/default
-  #   steps:
-  #     - checkout
-  #     - node/with-cache:
-  #         steps:
-  #           - run:
-  #             command: npm install
-  #             working_directory: ../server
-  #           - run:
-  #             command: CI=true npm run build
-  #             working_directory: ../server
+            - run: cd client && CI=true npm run build
+            - run: cd client && npm test
+  build-and-test-server:
+    docker:
+      - image: circleci/node:10.16.3
+      - image: circleci/postgres:8.0
+      - image: circleci/redis:3.0
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: cd server && npm install
+            - run: cd server && CI=true npm run build
 workflows:
   build-and-test:
     jobs:
       - build-and-test-client
-      # - build-and-test-server
+      - build-and-test-server
