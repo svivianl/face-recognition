@@ -17,15 +17,15 @@ jobs:
   build-and-test-server:
     docker:
       - image: circleci/node:10.16.3
-      - image: circleci/postgres:8.0
-      - image: circleci/redis:3.0
+      # - image: circleci/postgres:8.0
+      # - image: circleci/redis:3.0
     executor:
       name: node/default
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: cd server && npm install
+            - run: cd server && docker-compose down && docker-compose up
 workflows:
   build-and-test:
     jobs:
