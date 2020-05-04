@@ -3,7 +3,6 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   build-and-test-client:
-    working_directory: ../client
     docker:
       - image: circleci/node:10.16.3
     executor:
@@ -12,7 +11,7 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
+            - run: cd client && npm install
             # - run:
             #   command: CI=true npm run build
             #   working_directory: ../client
