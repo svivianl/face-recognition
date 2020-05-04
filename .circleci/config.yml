@@ -31,13 +31,8 @@ jobs:
             - run:
               command: npm install
               working_directory: ../server
-            - run:
-              command: npm test
-              working_directory: ../server
 workflows:
-  build-and-test-client:
+  build-and-test:
     jobs:
       - build-and-test-client
-  build-and-test-server:
-    jobs:
       - build-and-test-server
