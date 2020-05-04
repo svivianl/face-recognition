@@ -1,8 +1,8 @@
 version: 2.1
-orbs:
-  node: circleci/node:10.16
 jobs:
   build-and-test-client:
+    docker:
+      - image: circleci/node:10.16.3
     executor:
       name: node/default
     steps:
@@ -16,6 +16,10 @@ jobs:
               command: npm test
               working_directory: ../client
   build-and-test-server:
+    docker:
+      - image: circleci/node:10.16.3
+      - image: circleci/postgres:8.0
+      - image: circleci/redis:3.0
     executor:
       name: node/default
     steps:
