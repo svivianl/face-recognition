@@ -2,6 +2,8 @@
 
 A responsive face recognition app.
 
+![Image of face recognition](./img/face-recognition.png)
+
 ## Stack
 
 Front-end
